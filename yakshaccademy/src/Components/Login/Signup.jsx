@@ -37,13 +37,14 @@ const initdata={
   "email":"",
   "password":"",
   "type":"",
-  "field":""
+  "field":"",
+  "unqId":""
 }
 const defaultTheme = createTheme();
 
 export default function SignUp() {
   const [regdata,setRegdata]=React.useState(initdata)
-  const {name,email,password,type,field}=regdata
+  const {name,email,password,type,field,unqId}=regdata
   const data=useSelector((state)=>state.registerreducer)
   const {isLoading}=data
   const dispatch=useDispatch()
@@ -98,6 +99,20 @@ setRegdata((pre)=>({...pre,[name]:value}))
             fullWidth
             id="firstName"
             label="name"
+            autoFocus
+            onChange={hanndlechange}
+            sx={{ width: '80%', '@media (min-width: 600px)': { width: '30%' } }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            autoComplete="given-name"
+            name="unqId"
+            required
+            value={regdata.unqId}
+            fullWidth
+            id="UniqueId"
+            label="UniqueId"
             autoFocus
             onChange={hanndlechange}
             sx={{ width: '80%', '@media (min-width: 600px)': { width: '30%' } }}
@@ -193,7 +208,7 @@ setRegdata((pre)=>({...pre,[name]:value}))
     
     
     :<Button
-    disabled={name&&email&&type&&password&&field?false:true}
+    disabled={name&&email&&type&&password&&field&&unqId?false:true}
       type="submit"
       fullWidth
       variant="contained"

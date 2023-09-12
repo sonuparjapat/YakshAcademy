@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux'
 
 import StudentNavbar from '../pages/Student/studentComponents/Navbar'
 
+import StudentProfile from '../pages/Student/Studentpages/StudentProfile'
+
 
 export default function AllRoutes() {
   const data=useSelector((state)=>state.loginreducer)
@@ -27,7 +29,8 @@ const location=useLocation()
  
 
    <Route path="/student" element={<StudentPrivateRoute><Student/></StudentPrivateRoute>}></Route>
-   <Route path="/student/assignments" element={<StudentPrivateRoute><Assignments/></StudentPrivateRoute>}></Route>
+   <Route path="/assignments" element={<StudentPrivateRoute><Assignments/></StudentPrivateRoute>}></Route>
+   <Route path="/profile" element={<StudentPrivateRoute><StudentProfile/></StudentPrivateRoute>}></Route>
 
   
   
