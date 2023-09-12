@@ -36,13 +36,14 @@ const initdata={
   "name":"",
   "email":"",
   "password":"",
-  "type":""
+  "type":"",
+  "field":""
 }
 const defaultTheme = createTheme();
 
 export default function SignUp() {
   const [regdata,setRegdata]=React.useState(initdata)
-  const {name,email,password,type}=regdata
+  const {name,email,password,type,field}=regdata
   const data=useSelector((state)=>state.registerreducer)
   const {isLoading}=data
   const dispatch=useDispatch()
@@ -119,6 +120,24 @@ setRegdata((pre)=>({...pre,[name]:value}))
           </FormControl>
         </Grid>
         <Grid item xs={12}>
+          <FormControl fullWidth sx={{ mt: 2, width: '80%', '@media (min-width: 600px)': { width: '30%' } }}>
+            <InputLabel id="demo-simple-select-label">Field</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={regdata.field}
+              name="field"
+              label="Field"
+              onChange={hanndlechange}
+            >
+              <MenuItem value={"frontend"}>Frontend</MenuItem>
+              <MenuItem value={"backend"}>Backend</MenuItem>
+              <MenuItem value={"fullstack"}>Fullstack</MenuItem>
+             
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             required
             fullWidth
@@ -174,7 +193,7 @@ setRegdata((pre)=>({...pre,[name]:value}))
     
     
     :<Button
-    disabled={name&&email&&type&&password?false:true}
+    disabled={name&&email&&type&&password&&field?false:true}
       type="submit"
       fullWidth
       variant="contained"
