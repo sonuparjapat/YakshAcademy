@@ -3,20 +3,18 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { registerfailure, registersuccess, userregister } from '../../Redux/Authentication/Register/Action';
+
 import { useToast } from '@chakra-ui/react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { loginfailure, loginsuccess, userlogin } from '../../Redux/Authentication/Login/Action';
 
 function Copyright(props) {
   return (
@@ -33,32 +31,35 @@ function Copyright(props) {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const initdata={
-  "name":"",
+
   "email":"",
   "password":"",
-  "type":""
+
 }
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function Login() {
   const [regdata,setRegdata]=React.useState(initdata)
-  const {name,email,password,type}=regdata
-  const data=useSelector((state)=>state.registerreducer)
-  const {isLoading}=data
+  const {password,email}=regdata
+  const data=useSelector((state)=>state.loginreducer)
+  const {isLoading,type,token,username,useremail}=data
   const dispatch=useDispatch()
   const toast=useToast()
 const navigate=useNavigate()
+const location=useLocation()
 
-  // handling registration post request
+  // handling login post request
   const handleSubmit = (event) => {
     event.preventDefault();
-dispatch(userregister(regdata)).then((res)=>{
+  
+dispatch(userlogin(regdata)).then((res)=>{
   toast({description:res.data.msg,status:"success",position:"top",duration:3000})
-  dispatch(registersuccess())
-  navigate("/login")
+  dispatch(loginsuccess(res.data))
+
+  navigate(`/${res.data.type}`)
 }).catch((err)=>{
     toast({description:err.response.data.msg,status:"error",position:"top",duration:3000})
-dispatch(registerfailure())
+dispatch(loginfailure())
   })
   };
 
@@ -84,41 +85,11 @@ setRegdata((pre)=>({...pre,[name]:value}))
       <LockOutlinedIcon />
     </Avatar>
     <Typography component="h1" variant="h5">
-      Sign up
+      Sign In
     </Typography>
     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            autoComplete="given-name"
-            name="name"
-            required
-            value={regdata.name}
-            fullWidth
-            id="firstName"
-            label="name"
-            autoFocus
-            onChange={hanndlechange}
-            sx={{ width: '80%', '@media (min-width: 600px)': { width: '30%' } }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControl fullWidth sx={{ mt: 2, width: '80%', '@media (min-width: 600px)': { width: '30%' } }}>
-            <InputLabel id="demo-simple-select-label">Type</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={regdata.type}
-              name="type"
-              label="Type"
-              onChange={hanndlechange}
-            >
-              <MenuItem value={"instructer"}>Instructor</MenuItem>
-              <MenuItem value={"student"}>Student</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
+          <Grid item xs={12}>
           <TextField
             required
             fullWidth
@@ -128,7 +99,7 @@ setRegdata((pre)=>({...pre,[name]:value}))
             value={regdata.email}
             autoComplete="email"
             onChange={hanndlechange}
-            sx={{ width: '80%', '@media (min-width: 600px)': { width: '30%' } }}
+            sx={{ width: '80%', '@media (min-width: 600px)': { width: '80%' } }}
           />
         </Grid>
         <Grid item xs={12}>
@@ -142,7 +113,7 @@ setRegdata((pre)=>({...pre,[name]:value}))
             value={regdata.password}
             autoComplete="new-password"
             onChange={hanndlechange}
-            sx={{ width: '80%', '@media (min-width: 600px)': { width: '30%' } }}
+            sx={{ width: '80%', '@media (min-width: 600px)': { width: '80%' } }}
           />
         </Grid>
       </Grid>
@@ -152,7 +123,7 @@ setRegdata((pre)=>({...pre,[name]:value}))
     
         fullWidth
         variant="contained"
-        sx={{ mt: 3, mb: 2, width: '80%', '@media (min-width: 600px)': { width: '30%' } }}
+        sx={{ mt: 3, mb: 2, width: '80%', '@media (min-width: 600px)': { width: '80%' } }}
       >
         <div className="spinner-grow text-primary" role="status">
       <span className="visually-hidden">Loading...</span>
@@ -174,13 +145,13 @@ setRegdata((pre)=>({...pre,[name]:value}))
     
     
     :<Button
-    disabled={name&&email&&type&&password?false:true}
+    disabled={email&&password?false:true}
       type="submit"
       fullWidth
       variant="contained"
-      sx={{ mt: 3, mb: 2, width: '80%', '@media (min-width: 600px)': { width: '30%' } }}
+      sx={{ mt: 3, mb: 2, width: '80%', '@media (min-width: 600px)': { width: '80%' } }}
     >
-      Sign Up
+      Sign IN
     </Button>
     
     
@@ -188,8 +159,8 @@ setRegdata((pre)=>({...pre,[name]:value}))
       
       <Grid container justifyContent="center" alignItems="center" sx={{ mt: 3 }}>
             <Grid item>
-              <Link to="/login" variant="body2">
-                Already have an account? Sign in
+              <Link to="/signup" variant="body2">
+                Don't have an account? Sign Up
               </Link>
             </Grid>
           </Grid>

@@ -12,9 +12,10 @@ export const registersuccess=()=>{
 export const registerfailure=()=>{
     return {type:regfail}
 }
-console.log(mainapi)
+
 export const userregister=(obj)=>(dispatch)=>{
     dispatch(registerrequest())
+    console.log(`${mainapi}/user/register`)
     return axios.post(`${mainapi}/user/register`,obj)
 
 }
