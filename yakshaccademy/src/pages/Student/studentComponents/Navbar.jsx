@@ -24,7 +24,7 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons'
 import logo from "../Images/Yaksh.png"
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 export default function StudentNavbar() {
   const { isOpen, onToggle } = useDisclosure()
 
@@ -99,7 +99,7 @@ const DesktopNav = () => {
   const linkColor = useColorModeValue('gray.600', 'gray.200')
   const linkHoverColor = useColorModeValue('gray.800', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
-
+const location=useLocation()
   return (
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
@@ -109,7 +109,7 @@ const DesktopNav = () => {
               <Box
                 as="a"
                 p={2}
-            
+       textDecoration={location.pathname==`/${navItem.to}`?"underline":"none"}
                 fontSize={'sm'}
                 fontWeight={500}
                 color={linkColor}
@@ -167,10 +167,10 @@ const MobileNavItem = ({ label,to }) => {
 
 
 const NAV_ITEMS = [
-  {
-    label: 'Lectures',
-   to:"lectures"
-  },
+  // {
+  //   label: 'Lectures',
+  //  to:"lectures"
+  // },
   {
     label: 'Assignments',
     to:"assignments"
