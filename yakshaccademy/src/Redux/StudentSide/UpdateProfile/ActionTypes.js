@@ -1,0 +1,3 @@
+export const updatestudentprofilereq="updateprofilereq"
+export const updatestudentprofilesucc="updatestudentprofilesucc"
+export const updatestudentprofilefail="updateprofilefail"

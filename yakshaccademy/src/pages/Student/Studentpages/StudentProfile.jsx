@@ -1,7 +1,11 @@
-import { Box, Button, Input, Select, Text } from '@chakra-ui/react'
+import { Box, Button, Input, Select, Text, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { FormControl,FormLabel } from '@chakra-ui/react'
+import { createstudentprofile, createstudentprofilefailure, createstudentprofilesuccess } from '../../../Redux/StudentSide/CreateProfile/Action'
+import { getstudentprofile } from '../../../Redux/StudentSide/GetProfile/Action'
+import { updatestudentprofile, updatestudentprofilefailure, updatestudentupdateprofilesuccess } from '../../../Redux/StudentSide/UpdateProfile/Action'
+import { updatestudentprofilefail } from '../../../Redux/StudentSide/UpdateProfile/ActionTypes'
 const initialdata={
   "name":"",
   "type":"",
@@ -17,78 +21,200 @@ const initialdata={
 export default function StudentProfile() {
 const [profiledata,setProfiledata]=useState(initialdata)
 const {name,type,field,unqId,dob,gender,mob,email}=profiledata
-const data=useSelector((state)=>state.loginreducer)
+const logindata=useSelector((state)=>state.loginreducer)
+const [falsyvaue,setFalsyvalue]=useState(false)
+const {token}=logindata
+
+const studentprofiledata=useSelector((state)=>state.getstudentprofilereducer)
+const {data,isLoading}=studentprofiledata
+const dispatch=useDispatch()
+// console.log("hi",data,typeof data)
 useEffect(()=>{
-  const {username,useremail,field,unqId,type}=data
-  setProfiledata((pre)=>({...pre,name:username,type:type,field:field,unqId:unqId,email:useremail}))
+  dispatch(getstudentprofile(token))
+  const {username,useremail,field,unqId,type}=logindata
+  if(typeof data=="undefined"||data.length==0){
+    setProfiledata((pre)=>({...pre,name:username,type:type,field:field,unqId:unqId,email:useremail}))
+  }else{
+    setProfiledata((pre)=>({...pre,name:data.name,type:data.type,field:data.field,unqId:data.unqId,email:data.email,gender:data.gender,dob:data.dob,mob:data.mob}))
+  }
+ 
 },[])
 
-const handlechange=(e)=>{
+const handleInputChange=(e)=>{
   const {name,value}=e.target
   setProfiledata((pre)=>({...pre,[name]:value}))
 }
-const handlesubmit=(e)=>{
+
+// Making requests for profile
+const updatedata=useSelector((state)=>state.updatestudentprofilereducer)
+const {updateisLoading}=updatedata
+const createdata=useSelector((state)=>state.createstudentprofilereducer)
+const {createisLoading}=createdata
+const toast=useToast()
+const handleSubmit=(e)=>{
   e.preventDefault()
   console.log(profiledata)
+if(typeof data=="undefined"||data.length==0){
+dispatch(createstudentprofile(profiledata,token)).then((res)=>{
+  toast({description:res.data.msg,status:"success","position":"top",duration:"2000"})
+  
+  dispatch(createstudentprofilesuccess())
+  dispatch(getstudentprofile(token))
+}).catch((err)=>{
+  toast({description:err.response.data.msg,status:"error","position":"top",duration:"2000"})
+  dispatch(createstudentprofilefailure())
+})
+}else{
+  dispatch(updatestudentprofile(data._id,token,profiledata)).then((res)=>{
+    toast({description:res.data.msg,status:"success","position":"top",duration:"2000"})
+    dispatch(updatestudentupdateprofilesuccess())
+    dispatch(getstudentprofile(token))
+ 
+  
+  }).catch((err)=>{
+   
+    toast({description:err.response.data.msg,status:"error","position":"top",duration:"2000"})
+    dispatch(updatestudentprofilefailure())
+  })
+}
+  // console.log(profiledata)
+}
+if(isLoading){
+  return <h1>Loading....</h1>
 }
   return (
-    <Box pb="40px" >
-      <Text marginTop={"15px"} fontSize={"20px"} textAlign={"center"} fontWeight={600}>User's Profile</Text>
-      <form onSubmit={handlesubmit}>
-      <Box w={"80%"} margin={"auto"}>
-        <Box display={"flex"} justifyContent={"space-around"}>
-<Box>  <Text marginTop={"15px"} fontSize={"20px"} textAlign={"center"} fontWeight={600}>User's Name :-</Text></Box>
-<Box w="80%" bg="white" boxShadow={"rgba(149, 157, 165, 0.2) 0px 8px 24px"}><Input onChange={handlechange} value={name} name="name" mt="10px" w="60%"  type="text" placeholder='Name'  /></Box>
-  
+    <Box p="40px">
+    <Text fontSize="20px" textAlign="center" fontWeight={600} mb="15px">
+      User's Profile
+    </Text>
+    <form onSubmit={handleSubmit}>
+      <Box w="80%" margin="auto">
+        <FormControl>
+          <FormLabel>User's Name</FormLabel>
+          <Input
+            value={name}
+            name="name"
+            disabled
+            onChange={handleInputChange}
+            type="text"
+            placeholder="Name"
+          />
+        </FormControl>
 
-  
-  
-  
-        </Box>
-          {/* email>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
-          <Box mt="30px" display={"flex"} justifyContent={"space-around"}>
-  <Box>  <Text marginTop={"15px"} fontSize={"20px"} textAlign={"center"} fontWeight={600}>Email Account :-</Text></Box>
-<Box  w="80%" bg="white" boxShadow={"rgba(149, 157, 165, 0.2) 0px 8px 24px"}><Input onChange={handlechange} disabled value={email} name="email" mt="10px" w="60%"  type="email" placeholder='Email'  /></Box>
-    </Box>
+        <FormControl mt="20px">
+          <FormLabel>Email Account</FormLabel>
+          <Input
+            value={email}
+            name="email"
+            onChange={handleInputChange}
+            type="email"
+            placeholder="Email"
+            isDisabled
+          />
+        </FormControl>
 
-{/* student id............................. */}
-<Box mt="30px" display={"flex"} justifyContent={"space-around"}>
-  <Box>  <Text marginTop={"15px"} fontSize={"20px"} textAlign={"center"} fontWeight={600}>Student Id :-</Text></Box>
-<Box w="80%" bg="white" boxShadow={"rgba(149, 157, 165, 0.2) 0px 8px 24px"}><Input onChange={handlechange} disabled value={unqId} name="unqId" mt="10px" w="60%"  type="text" placeholder='Student Id'  /></Box>
-    </Box>
+        <FormControl mt="20px">
+          <FormLabel>Student ID</FormLabel>
+          <Input
+            value={unqId}
+            name="unqId"
+            onChange={handleInputChange}
+            type="text"
+            placeholder="Student ID"
+            isDisabled
+          />
+        </FormControl>
 
+        <FormControl mt="20px">
+          <FormLabel>Type</FormLabel>
+          <Input
+            value={type}
+            name="type"
+            onChange={handleInputChange}
+            type="text"
+            placeholder="Type"
+            isDisabled
+          />
+        </FormControl>
 
+        <FormControl mt="20px">
+          <FormLabel>D.O.B</FormLabel>
+          <Input
+            value={dob}
+            name="dob"
+            onChange={handleInputChange}
+            type="date"
+            placeholder="D.O.B"
+          />
+        </FormControl>
 
-{/* type............................. */}
-<Box mt="30px" display={"flex"} justifyContent={"space-around"}>
-  <Box>  <Text marginTop={"15px"} fontSize={"20px"} textAlign={"center"} fontWeight={600}>Type :-</Text></Box>
-<Box w="80%" bg="white" boxShadow={"rgba(149, 157, 165, 0.2) 0px 8px 24px"}><Input onChange={handlechange} disabled  value={type} name="type" mt="10px" w="60%"  type="text" placeholder='Type'  /></Box>
-    </Box>
+        <FormControl mt="20px">
+          <FormLabel>Gender</FormLabel>
+          <Select
+            value={gender}
+            name="gender"
+            onChange={handleInputChange}
+            placeholder="Gender"
+          >
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </Select>
+        </FormControl>
 
-{/* D.O.B............................. */}
-<Box mt="30px" display={"flex"} justifyContent={"space-around"}>
-  <Box>  <Text marginTop={"15px"} fontSize={"20px"} textAlign={"center"} fontWeight={600}>D.O.B :-</Text></Box>
-<Box w="80%" bg="white" boxShadow={"rgba(149, 157, 165, 0.2) 0px 8px 24px"}><Input onChange={handlechange}  value={dob} name="dob" mt="10px" w="60%"  type="date" placeholder='D.O.B'  /></Box>
-    </Box>
+        <FormControl mt="20px">
+          <FormLabel>Mobile Number</FormLabel>
+          <Input
+            value={mob}
+            name="mob"
+            onChange={handleInputChange}
+            type="number"
+            placeholder="Mobile Number"
+          />
+        </FormControl>
+{data.length==0?
+createisLoading?
+ <Button
+ bg="blue.300"
+ w="40%"
 
-{/* Gender............................. */}
-<Box mt="30px" display={"flex"} justifyContent={"space-around"}>
-  <Box>  <Text marginTop={"15px"} fontSize={"20px"} textAlign={"center"} fontWeight={600}>Gender :-</Text></Box>
-<Box w="80%" bg="white" boxShadow={"rgba(149, 157, 165, 0.2) 0px 8px 24px"}>
-  <Select onChange={handlechange}  value="gender" w="60%" name="gender" mt="10px"><option value="">Gender</option><option value="male">Male</option><option value="female">Female</option></Select>
- </Box>
-    </Box>
-{/* Mob............................. */}
-<Box mt="30px" display={"flex"} justifyContent={"space-around"}>
-  <Box>  <Text marginTop={"15px"} fontSize={"20px"} textAlign={"center"} fontWeight={600}>MobileNumber :-</Text></Box>
-<Box w="80%" bg="white" boxShadow={"rgba(149, 157, 165, 0.2) 0px 8px 24px"}><Input  onChange={handlechange} value={mob} name="mob" mt="10px" w="60%"  type="number" placeholder='Mob'  /></Box>
-    </Box>
-    <Button bg={"blue.300"} w="40%" type="submit" margin={"auto"} mt="30px"  >SAVE()</Button>
+ margin="auto"
+ mt="30px"
+ color="white"
+>
+Loading...
+</Button>: <Button
+ bg="blue.300"
+ w="40%"
+ type="submit"
+ margin="auto"
+ mt="30px"
+ color="white"
+>
+Save
+</Button>: updateisLoading? <Button
+          bg="blue.300"
+          w="40%"
+      
+          margin="auto"
+          mt="30px"
+          color="white"
+        >
+    Loading...
+        </Button>:
+        <Button
+        bg="blue.300"
+        w="40%"
+        type="submit"
+        margin="auto"
+        mt="30px"
+        color="white"
+      >
+       Update
+      </Button>
+}
+      
       </Box>
-
-      
-      
-      </form>
-    </Box>
+    </form>
+  </Box>
   )
 }

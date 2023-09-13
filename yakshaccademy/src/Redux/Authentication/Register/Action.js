@@ -14,8 +14,9 @@ export const registerfailure=()=>{
 }
 
 export const userregister=(obj)=>(dispatch)=>{
+   
     dispatch(registerrequest())
-    console.log(`${mainapi}/user/register`)
+
     return axios.post(`${mainapi}/user/register`,obj)
 
 }
