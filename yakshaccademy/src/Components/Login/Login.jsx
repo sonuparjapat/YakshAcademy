@@ -58,8 +58,14 @@ dispatch(userlogin(regdata)).then((res)=>{
 
   navigate(`/${res.data.type}`)
 }).catch((err)=>{
-    toast({description:err.response.data.msg,status:"error",position:"top",duration:3000})
-dispatch(loginfailure())
+  
+  if(err.message=="Network Error"){
+    toast({description:"Please check your internet connection",status:"error",position:"top",duration:3000})
+
+    dispatch(loginfailure())
+  }
+   else{ toast({description:err.response.data.msg,status:"error",position:"top",duration:3000})
+dispatch(loginfailure())}
   })
   };
 
@@ -117,7 +123,7 @@ setRegdata((pre)=>({...pre,[name]:value}))
           />
         </Grid>
       </Grid>
-      {isLoading?
+      {typeof data!==undefined&&isLoading?
      
       <Button
     

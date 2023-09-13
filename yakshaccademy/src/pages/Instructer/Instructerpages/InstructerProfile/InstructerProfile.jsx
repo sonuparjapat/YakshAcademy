@@ -2,14 +2,17 @@ import { Box, Button, Input, Select, Text, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FormControl,FormLabel } from '@chakra-ui/react'
-import { createstudentprofile, createstudentprofilefailure, createstudentprofilesuccess } from '../../../Redux/StudentSide/CreateProfile/Action'
-import { getstudentprofile } from '../../../Redux/StudentSide/GetProfile/Action'
-import { updatestudentprofile, updatestudentprofilefailure, updatestudentupdateprofilesuccess } from '../../../Redux/StudentSide/UpdateProfile/Action'
-import { updatestudentprofilefail } from '../../../Redux/StudentSide/UpdateProfile/ActionTypes'
+
+
+
+
+import { getinstructerprofile } from '../../../../Redux/InstructerSide/GetInstructerProfile/Action'
+import { createinstructerprofilefailure, createinstructerprofilesuccess, createinstruterprofile } from '../../../../Redux/InstructerSide/CreateInstructerProfile/Action'
+import { updateinstprofile, updateinstprofilefailure, updateinstprofilesuccess } from '../../../../Redux/InstructerSide/UpdateInstructerProfile/Action'
 const initialdata={
   "name":"",
   "type":"",
-  "field":"",
+  "department":"",
   "unqId":"",
   "dob":"",
   "gender":"",
@@ -18,24 +21,24 @@ const initialdata={
 
 
 }
-export default function StudentProfile() {
+export default function InstructerProfile() {
 const [profiledata,setProfiledata]=useState(initialdata)
-const {name,type,field,unqId,dob,gender,mob,email}=profiledata
+const {name,type,department,unqId,dob,gender,mob,email}=profiledata
 const logindata=useSelector((state)=>state.loginreducer)
 const [falsyvaue,setFalsyvalue]=useState(false)
 const {token}=logindata
 
-const studentprofiledata=useSelector((state)=>state.getstudentprofilereducer)
-const {data,isLoading}=studentprofiledata
+const instructerprofiledata=useSelector((state)=>state.getinstprofilereducer)
+const {data,isLoading}=instructerprofiledata
 const dispatch=useDispatch()
 // console.log("hi",data,typeof data)
 useEffect(()=>{
-  dispatch(getstudentprofile(token))
+  dispatch(getinstructerprofile(token))
   const {username,useremail,field,unqId,type}=logindata
   if(typeof data=="undefined"||data.length==0){
-    setProfiledata((pre)=>({...pre,name:username,type:type,field:field,unqId:unqId,email:useremail}))
+    setProfiledata((pre)=>({...pre,name:username,type:type,department:field,unqId:unqId,email:useremail}))
   }else{
-    setProfiledata((pre)=>({...pre,name:data.name,type:data.type,field:data.field,unqId:data.unqId,email:data.email,gender:data.gender,dob:data.dob,mob:data.mob}))
+    setProfiledata((pre)=>({...pre,name:data.name,type:data.type,department:data.field,unqId:data.unqId,email:data.email,gender:data.gender,dob:data.dob,mob:data.mob}))
   }
  
 },[])
@@ -46,49 +49,35 @@ const handleInputChange=(e)=>{
 }
 
 // Making requests for profile
-const updatedata=useSelector((state)=>state.updatestudentprofilereducer)
-const {updateisLoading}=updatedata
-console.log(updateisLoading)
-const createdata=useSelector((state)=>state.createstudentprofilereducer)
-const {createisLoading}=createdata
+const updatedata=useSelector((state)=>state.updateinstprofilereducer)
+const {updateinstisLoading}=updatedata
+const createdata=useSelector((state)=>state.createinstprofilereducer)
+const {instisLoading}=createdata
 const toast=useToast()
 const handleSubmit=(e)=>{
   e.preventDefault()
-  // console.log(profiledata)
+  console.log(profiledata)
 if(typeof data=="undefined"||data.length==0){
-dispatch(createstudentprofile(profiledata,token)).then((res)=>{
+dispatch(createinstruterprofile(profiledata,token)).then((res)=>{
   toast({description:res.data.msg,status:"success","position":"top",duration:"2000"})
   
-  dispatch(createstudentprofilesuccess())
-  dispatch(getstudentprofile(token))
+  dispatch(createinstructerprofilesuccess())
+  dispatch(getinstructerprofile(token))
 }).catch((err)=>{
-  if(err.message=="Network Error"){
-    toast({description:"Please check your internet connection",status:"error",position:"top",duration:3000})
-
-    dispatch(createstudentprofilefailure())
-  }else{
-    toast({description:err.response.data.msg,status:"error","position":"top",duration:"2000"})
-    dispatch(createstudentprofilefailure())
-  }
-
+  toast({description:err.response.data.msg,status:"error","position":"top",duration:"2000"})
+  dispatch(createinstructerprofilefailure())
 })
 }else{
-  dispatch(updatestudentprofile(data._id,token,profiledata)).then((res)=>{
+  dispatch(updateinstprofile(data._id,token,profiledata)).then((res)=>{
     toast({description:res.data.msg,status:"success","position":"top",duration:"2000"})
-    dispatch(updatestudentupdateprofilesuccess())
-    dispatch(getstudentprofile(token))
+    dispatch(updateinstprofilesuccess())
+    dispatch(getinstructerprofile(token))
  
   
   }).catch((err)=>{
-    if(err.message=="Network Error"){
-      toast({description:"Please check your internet connection",status:"error",position:"top",duration:3000})
-  
-      dispatch(updatestudentprofilefailure())
-    }else{
-      toast({description:err.response.data.msg,status:"error","position":"top",duration:"2000"})
-      dispatch(updatestudentprofilefailure())
-    }
- 
+   
+    toast({description:err.response.data.msg,status:"error","position":"top",duration:"2000"})
+    dispatch(updateinstprofilefailure())
   })
 }
   // console.log(profiledata)
@@ -106,7 +95,7 @@ if(isLoading){
         <FormControl>
           <FormLabel>User's Name</FormLabel>
           <Input
-            value={name}
+            value={name&&name}
             name="name"
             disabled
             onChange={handleInputChange}
@@ -128,27 +117,17 @@ if(isLoading){
         </FormControl>
 
         <FormControl mt="20px">
-          <FormLabel>Student ID</FormLabel>
+          <FormLabel>Instructer ID</FormLabel>
           <Input
             value={unqId&&unqId}
             name="unqId"
             onChange={handleInputChange}
             type="text"
-            placeholder="Student ID"
+            placeholder="Instructer ID"
             isDisabled
           />
         </FormControl>
-        <FormControl mt="20px">
-          <FormLabel>Field:-</FormLabel>
-          <Input
-            value={field&&field}
-            name="field"
-            onChange={handleInputChange}
-            type="text"
-            placeholder="field"
-            isDisabled
-          />
-        </FormControl>
+
         <FormControl mt="20px">
           <FormLabel>Type</FormLabel>
           <Input
@@ -157,6 +136,17 @@ if(isLoading){
             onChange={handleInputChange}
             type="text"
             placeholder="Type"
+            isDisabled
+          />
+        </FormControl>
+        <FormControl mt="20px">
+          <FormLabel>Department:-</FormLabel>
+          <Input
+            value={department&&department}
+            name="department"
+            onChange={handleInputChange}
+            type="text"
+            placeholder="Department"
             isDisabled
           />
         </FormControl>
@@ -196,7 +186,7 @@ if(isLoading){
           />
         </FormControl>
 {data.length==0?
-createisLoading?
+instisLoading?
  <Button
  bg="blue.300"
  w="40%"
@@ -213,10 +203,10 @@ Loading...
  margin="auto"
  mt="30px"
  color="white"
- isDisabled={name&&mob&&email&&gender&&field&&unqId&&type&&dob?false:true}
+ disabled={name&&mob&&email&&gender&&department&&unqId&&type&&dob?false:true}
 >
 Save
-</Button>: updateisLoading? <Button
+</Button>: updateinstisLoading? <Button
           bg="blue.300"
           w="40%"
       
@@ -233,7 +223,7 @@ Save
         margin="auto"
         mt="30px"
         color="white"
-        isDisabled={name&&mob&&email&&gender&&field&&unqId&&type&&dob?false:true}
+        disabled={name&&mob&&email&&gender&&department&&unqId&&type&&dob?false:true}
       >
        Update
       </Button>

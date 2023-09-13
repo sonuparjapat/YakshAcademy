@@ -1,7 +1,10 @@
 import React from 'react'
+import InstructerAssignments from './Instructerpages/InstructerAssignments/InstructerAssignments'
 
 export default function Instructer() {
   return (
-    <div>instructer</div>
+    <div>
+      <InstructerAssignments/>
+    </div>
   )
 }

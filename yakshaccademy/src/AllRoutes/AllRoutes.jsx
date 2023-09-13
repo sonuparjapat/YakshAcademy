@@ -12,6 +12,10 @@ import { useSelector } from 'react-redux'
 import StudentNavbar from '../pages/Student/studentComponents/Navbar'
 
 import StudentProfile from '../pages/Student/Studentpages/StudentProfile'
+import InstructerNavbar from '../pages/Instructer/InstructerComponents/InstructerNavbar'
+import InstructerProfile from '../pages/Instructer/Instructerpages/InstructerProfile/InstructerProfile'
+import InstructerAssignments from '../pages/Instructer/Instructerpages/InstructerAssignments/InstructerAssignments'
+import InstructerCreateAssignments from '../pages/Instructer/Instructerpages/InstructerCreateAssignments/InstructerCreateAssignments'
 
 
 export default function AllRoutes() {
@@ -21,6 +25,7 @@ const location=useLocation()
   return (
     <div>
      {type&&type=="student"&&location.pathname!=="/login"&&location.pathname!=="/signup"&&location.pathname!=="/"&&<StudentNavbar/>}
+     {type&&type=="instructer"&&location.pathname!=="/login"&&location.pathname!=="/signup"&&location.pathname!=="/"&&<InstructerNavbar/>}
      
 <Routes>
   <Route path="/" element={<Login/>}></Route>
@@ -33,8 +38,12 @@ const location=useLocation()
    <Route path="/profile" element={<StudentPrivateRoute><StudentProfile/></StudentPrivateRoute>}></Route>
 
   
-  
+  {/* InstructerRoutes */}
     <Route path="/instructer" element={<InstructerPrivateRoute><Instructer/></InstructerPrivateRoute>}></Route>
+    <Route path="/instructerprofile" element={<InstructerPrivateRoute><InstructerProfile/></InstructerPrivateRoute>}></Route>
+    <Route path="/instructerassignments" element={<InstructerPrivateRoute><InstructerAssignments/></InstructerPrivateRoute>}></Route>
+    <Route path="/createassignments" element={<InstructerPrivateRoute><InstructerCreateAssignments/></InstructerPrivateRoute>}></Route>
+    <Route path="" element={<InstructerPrivateRoute></InstructerPrivateRoute>}></Route>
 </Routes>
 
 

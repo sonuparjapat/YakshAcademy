@@ -1,0 +1,3 @@
+export const createinstprofilereq="createinstprofilereq"
+export const createinstprofilesucc="createinstprofilesucc"
+export const createinstprofilefail="createinstprofilefail"

@@ -59,8 +59,15 @@ dispatch(userregister(regdata)).then((res)=>{
   dispatch(registersuccess())
   navigate("/login")
 }).catch((err)=>{
+  if(err.message=="Network Error"){
+    toast({description:"Please check your internet connection",status:"error",position:"top",duration:3000})
+
+    dispatch(registerfailure())
+  }else{
+
+  
     toast({description:err.response.data.msg,status:"error",position:"top",duration:3000})
-dispatch(registerfailure())
+dispatch(registerfailure())}
   })
   };
 
