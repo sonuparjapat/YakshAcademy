@@ -13,9 +13,11 @@ export const instassignmentfailure=()=>{
 }
 
 
-export const instassignments=(token)=>(dispatch)=>{
+export const instassignments=(token,obj)=>(dispatch)=>{
+    console.log(obj)
     dispatch(instassignmentrequest())
-    axios.get(`${mainapi}/assignment/allinstructerassignment`,{
+    axios.get(`http://localhost:8080/assignment/allinstructerassignment`,{
+        params:obj,
         headers:{
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
