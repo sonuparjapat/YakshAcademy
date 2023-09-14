@@ -173,7 +173,7 @@ const NAV_ITEMS = [
   // },
   {
     label: 'AllAssignments',
-    to:"instructerassignments"
+    to:"instructer"
 
      
   },
