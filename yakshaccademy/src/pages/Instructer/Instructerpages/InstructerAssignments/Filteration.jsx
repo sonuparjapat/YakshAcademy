@@ -3,13 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import InstructerAssignments from './InstructerAssignments'
 import { useDebounce } from '../../../Student/Studentpages/Debounce'
-
+import { Pagination, ThemeProvider, createTheme } from '@mui/material'
+import { useSelector } from 'react-redux'
+const defaultTheme =createTheme();
 export default function Filterdata() {
     const [searchParams,setSearchParams]=useSearchParams()
     const [page,setPage]=useState(searchParams.get("page")||1)
     const [date,setDate]=useState("")
     const [deadline,setDeadline]=useState("")
     const [name,setName]=useState("")
+    const assignmentdata=useSelector((state)=>state.instassignmentsreducer)
+    const {totalcount}=assignmentdata
   
 const handlechange=(e)=>{
     
@@ -29,7 +33,7 @@ useEffect(()=>{
     
     setSearchParams(params)
 
-},[name,date,deadline])
+},[name,date,deadline,page])
   return (
     <>
     <Box  bg="white" pt="100px" pd="100px" w="80%" margin={"auto"} mt="100px" >
@@ -42,6 +46,10 @@ useEffect(()=>{
 <Input type="date" name="deadline" onChange={(e)=>setDate(e.target.value)}/></Box>
     </Box></Box> 
         <InstructerAssignments/>
+        <Box  w="80%" margin="auto" mt="20px" pb="40px" display={"flex"} justifyContent={"right"} alignItems={"right"}>
+<ThemeProvider theme={defaultTheme}>
+<Pagination count={totalcount&&totalcount} page={page} onChange={(e,pageno)=>setPage(pageno)} color="primary" />
+    </ThemeProvider></Box>
     </>
   )
 }

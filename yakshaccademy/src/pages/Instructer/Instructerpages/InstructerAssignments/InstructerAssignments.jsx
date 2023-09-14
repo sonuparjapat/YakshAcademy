@@ -19,14 +19,17 @@ export default function InstructerAssignments() {
 
   const [editmodule,setEditModule]=useState(false)
   const [assignment,setAssignment]=useState(initialdata)
+ 
+
   const {name,instructername,type,date,deadline}=assignment
   const dispatch=useDispatch()
   const logindata=useSelector((state)=>state.loginreducer)
   const {token}=logindata
 const instassignmentsalldata=useSelector((state)=>state.instassignmentsreducer)
 const {isLoading,isError,data,totalcount}=instassignmentsalldata
-console.log(data)
-const [searchParams]=useSearchParams()
+// console.log(data)
+const [searchParams,setSearchParams]=useSearchParams()
+const [page,setPage]=useState(searchParams.get("page")||1)
 
   const location=useLocation()
     useEffect(()=>{
@@ -50,7 +53,14 @@ setEditModule(!editmodule)
 const handledelete=(id)=>{
 
 }
-
+const handlepagechange=(e,pageno)=>{
+  console.log(pageno)
+  setPage(pageno)
+  let obj={
+    page:page
+  }
+  setSearchParams(obj)
+}
 const handleSubmit=()=>{
 
 }
@@ -112,10 +122,7 @@ const handleChange=()=>{
       ):<h1>No data found</h1>}
     
 </Box>  
-<Box  w="80%" margin="auto" mt="20px" pb="40px" display={"flex"} justifyContent={"right"} alignItems={"right"}>
-<ThemeProvider theme={defaultTheme}>
-<Pagination count={totalcount&&totalcount} color="primary" />
-    </ThemeProvider></Box>
+
       </div>
   )
 }
