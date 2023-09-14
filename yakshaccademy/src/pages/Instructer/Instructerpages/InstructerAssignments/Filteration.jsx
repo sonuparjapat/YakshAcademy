@@ -6,6 +6,7 @@ import { useDebounce } from '../../../Student/Studentpages/Debounce'
 
 export default function Filterdata() {
     const [searchParams,setSearchParams]=useSearchParams()
+    const [page,setPage]=useState(searchParams.get("page")||1)
     const [date,setDate]=useState("")
     const [deadline,setDeadline]=useState("")
     const [name,setName]=useState("")
@@ -22,7 +23,10 @@ useEffect(()=>{
     const params={}
     name&&(params.name=name)
     date&&(params.date=date)
+    page&&(params.page=page)
+  
     deadline&&(params.deadline=deadline)
+    
     setSearchParams(params)
 
 },[name,date,deadline])

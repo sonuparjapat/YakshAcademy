@@ -51,7 +51,7 @@ const toast=useToast()
     // You can add your logic to handle the form submission here
     dispatch(createassignment(token,assignment)).then((res)=>{
       toast({description:res.data.msg,status:"success",position:"top",duration:3000})
-      setAssignment(initialdata)
+      // setAssignment(initialdata)
 dispatch(createassignmentsuccess())
     }).catch((err)=>{
       if(err.message=="Network Error"){
