@@ -38,7 +38,7 @@ useEffect(()=>{
   if(typeof data=="undefined"||data.length==0){
     setProfiledata((pre)=>({...pre,name:username,type:type,department:field,unqId:unqId,email:useremail}))
   }else{
-    setProfiledata((pre)=>({...pre,name:data.name,type:data.type,department:data.field,unqId:data.unqId,email:data.email,gender:data.gender,dob:data.dob,mob:data.mob}))
+    setProfiledata((pre)=>({...pre,name:data.name,type:data.type,department:data.department,unqId:data.unqId,email:data.email,gender:data.gender,dob:data.dob,mob:data.mob}))
   }
  
 },[])
@@ -56,7 +56,7 @@ const {instisLoading}=createdata
 const toast=useToast()
 const handleSubmit=(e)=>{
   e.preventDefault()
-  console.log(profiledata)
+//   console.log(profiledata)
 if(typeof data=="undefined"||data.length==0){
 dispatch(createinstruterprofile(profiledata,token)).then((res)=>{
   toast({description:res.data.msg,status:"success","position":"top",duration:"2000"})
@@ -95,6 +95,8 @@ if(isLoading){
         <FormControl>
           <FormLabel>User's Name</FormLabel>
           <Input
+               boxShadow={" rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}
+bg="white"
             value={name&&name}
             name="name"
             disabled
@@ -107,6 +109,8 @@ if(isLoading){
         <FormControl mt="20px">
           <FormLabel>Email Account</FormLabel>
           <Input
+             boxShadow={" rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}
+             bg="white"
             value={email&&email}
             name="email"
             onChange={handleInputChange}
@@ -119,6 +123,8 @@ if(isLoading){
         <FormControl mt="20px">
           <FormLabel>Instructer ID</FormLabel>
           <Input
+             boxShadow={" rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}
+             bg="white"
             value={unqId&&unqId}
             name="unqId"
             onChange={handleInputChange}
@@ -131,6 +137,8 @@ if(isLoading){
         <FormControl mt="20px">
           <FormLabel>Type</FormLabel>
           <Input
+             boxShadow={" rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}
+             bg="white"
             value={type&&type}
             name="type"
             onChange={handleInputChange}
@@ -142,6 +150,8 @@ if(isLoading){
         <FormControl mt="20px">
           <FormLabel>Department:-</FormLabel>
           <Input
+             boxShadow={" rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}
+             bg="white"
             value={department&&department}
             name="department"
             onChange={handleInputChange}
@@ -154,6 +164,8 @@ if(isLoading){
         <FormControl mt="20px">
           <FormLabel>D.O.B</FormLabel>
           <Input
+             boxShadow={" rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}
+             bg="white"
             value={dob&&dob}
             name="dob"
             onChange={handleInputChange}
@@ -165,6 +177,8 @@ if(isLoading){
         <FormControl mt="20px">
           <FormLabel>Gender</FormLabel>
           <Select
+             boxShadow={" rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}
+             bg="white"
             value={gender&&gender}
             name="gender"
             onChange={handleInputChange}
@@ -178,6 +192,8 @@ if(isLoading){
         <FormControl mt="20px">
           <FormLabel>Mobile Number</FormLabel>
           <Input
+             boxShadow={" rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}
+             bg="white"
             value={mob&&mob}
             name="mob"
             onChange={handleInputChange}
@@ -203,7 +219,7 @@ Loading...
  margin="auto"
  mt="30px"
  color="white"
- disabled={name&&mob&&email&&gender&&department&&unqId&&type&&dob?false:true}
+ isDisabled={name&&mob&&email&&gender&&department&&unqId&&type&&dob?false:true}
 >
 Save
 </Button>: updateinstisLoading? <Button
@@ -223,7 +239,7 @@ Save
         margin="auto"
         mt="30px"
         color="white"
-        disabled={name&&mob&&email&&gender&&department&&unqId&&type&&dob?false:true}
+        isDisabled={name&&mob&&email&&gender&&department&&unqId&&type&&dob?false:true}
       >
        Update
       </Button>

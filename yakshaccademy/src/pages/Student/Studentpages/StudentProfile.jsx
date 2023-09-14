@@ -48,7 +48,7 @@ const handleInputChange=(e)=>{
 // Making requests for profile
 const updatedata=useSelector((state)=>state.updatestudentprofilereducer)
 const {updateisLoading}=updatedata
-console.log(updateisLoading)
+// console.log(updateisLoading)
 const createdata=useSelector((state)=>state.createstudentprofilereducer)
 const {createisLoading}=createdata
 const toast=useToast()

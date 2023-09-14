@@ -14,8 +14,8 @@ import {reducer as updatestudentprofilereducer} from "../Redux/StudentSide/Updat
 import {reducer as updateinstprofilereducer} from "./InstructerSide/UpdateInstructerProfile/Reducer"
 import {reducer as createinstprofilereducer } from "./InstructerSide/CreateInstructerProfile/Reducer"
 import {reducer as getinstprofilereducer} from "./InstructerSide/GetInstructerProfile/Reducer"
-
-
+import {reducer as createassignmentreducer} from "./InstructerSide/CreateAssignments/Reducer"
+import {reducer as instassignmentsreducer} from "./InstructerSide/AllAssignments/Reducer"
 ///////////////////////////////////////////////////////////////////////////
 const { combineReducers, legacy_createStore, applyMiddleware } = require("redux");
 
@@ -24,5 +24,5 @@ const { combineReducers, legacy_createStore, applyMiddleware } = require("redux"
 
 
 const rootreducers=combineReducers({registerreducer,loginreducer,getstudentprofilereducer,createstudentprofilereducer,updatestudentprofilereducer,
-getinstprofilereducer,updateinstprofilereducer,createinstprofilereducer})
+getinstprofilereducer,updateinstprofilereducer,createinstprofilereducer,createassignmentreducer,instassignmentsreducer})
 export const store=legacy_createStore(rootreducers,applyMiddleware(thunk))

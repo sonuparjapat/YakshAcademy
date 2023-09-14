@@ -145,7 +145,7 @@ const MobileNavItem = ({ label,to }) => {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <Stack spacing={4} onClick={ onToggle}>
+    <Stack spacing={4} onClick={ onToggle} key={label}>
       <Box
         py={2}
         as="a"
