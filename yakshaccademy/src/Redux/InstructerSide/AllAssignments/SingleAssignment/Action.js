@@ -15,14 +15,10 @@ export const getsignleassignmentfailure=()=>{
 
 export const getsingleassignment=(token,id)=>(dispatch)=>{
     dispatch(getsignleassignmentrequest())
-    axios.get(`${mainapi}/assignment/getinstructerassignment/${id}`,{
+   return axios.get(`http://localhost:8080/assignment/getinstructerassignment/${id}`,{
         headers:{
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         }
-    }).then((res)=>{
-        dispatch(getsingleassignmentsuccess(res.data.msg))
-    }).catch((err)=>{
-        dispatch(getsignleassignmentfailure())
     })
 }

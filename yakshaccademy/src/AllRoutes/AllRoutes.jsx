@@ -44,7 +44,7 @@ const location=useLocation()
     <Route path="/instructerprofile" element={<InstructerPrivateRoute><InstructerProfile/></InstructerPrivateRoute>}></Route>
     <Route path="/instructerassignments" element={<InstructerPrivateRoute><Instructer/></InstructerPrivateRoute>}></Route>
     <Route path="/createassignments" element={<InstructerPrivateRoute><InstructerCreateAssignments/></InstructerPrivateRoute>}></Route>
-    <Route path="/editassignment/:id" element={<EditAssignment/>}></Route>
+    <Route path="/editassignment/:id" element={<InstructerPrivateRoute><EditAssignment/></InstructerPrivateRoute>}></Route>
     <Route path="" element={<InstructerPrivateRoute></InstructerPrivateRoute>}></Route>
 </Routes>
 

@@ -43,7 +43,7 @@ const [page,setPage]=useState(searchParams.get("page")||1)
 "deadline":searchParams.get("deadline")&&searchParams.get("deadline"),
 "limit":10,
 
-"page":searchParams.get("page")&&searchParams.get('page')
+"page":searchParams.get("page")&&searchParams.get('page')||1
       }
      
   dispatch(getinstructerprofile(token))

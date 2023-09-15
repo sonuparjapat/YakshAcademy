@@ -15,6 +15,7 @@ export const instassignmentfailure=()=>{
 
 export const instassignments=(token,obj)=>(dispatch)=>{
     // console.log(obj)
+    obj={...obj,limit:10}
     dispatch(instassignmentrequest())
     axios.get(`${mainapi}/assignment/allinstructerassignment`,{
         params:obj,

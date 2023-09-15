@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useNavigation, useParams } from 'react-router-dom';
-import { getsingleassignment } from '../../../Redux/InstructerSide/AllAssignments/SingleAssignment/Action';
+import { getsignleassignmentfailure, getsingleassignment, getsingleassignmentsuccess } from '../../../Redux/InstructerSide/AllAssignments/SingleAssignment/Action';
 import { editassignmentfailure, editassignmentsuccess, insteditassignment } from '../../../Redux/InstructerSide/AllAssignments/EditAssignment/Action';
 
 
@@ -26,7 +26,7 @@ const initialdata={
   deadline:"",
   date:"",
   link: '',
-  deadline: '',
+
   type: '',
 }
 export default function EditAssignment(){
@@ -38,13 +38,34 @@ export default function EditAssignment(){
   const logindata=useSelector((state)=>state.loginreducer)
   const {username,token}=logindata
   const {editisLoading}=useSelector((state)=>state.editassignmentreducer)
-  const {data,isLoading}=useSelector((state)=>state.getsingleassignmentreducer)
-console.log(data)
+  const singleassignmentdata=useSelector((state)=>state.getsingleassignmentreducer)
+ const { data,isLoading}=singleassignmentdata
+
+// console.log(editassignment)
+//  console.log(data)
+
 useEffect(()=>{
-dispatch(getsingleassignment(token,id))
-data&&setEditAssignment(data)
-// setEditAssignment((pre)=>({...pre,instructername:username,type:type}))
+dispatch(getsingleassignment(token,id)).then((res)=>{
+  dispatch(getsingleassignmentsuccess(res.data.msg))
+  setEditAssignment(res.data.msg)
+}).catch((err)=>{
+
+
+
+if(err.message=="Network Error"){
+  toast({description:"Please check your internet connection",status:"error",position:"top",duration:3000})
+
+dispatch(editassignmentfailure())
+}else{
+  toast({description:err.response.data.msg,status:"error",position:"top",duration:3000})
+
+  dispatch(editassignmentfailure()) 
+}})
 },[])
+
+// data&&setEditAssignment((pre)=>({...pre,name:data.name}))
+// setEditAssignment((pre)=>({...pre,instructername:username,type:type}))
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,8 +77,9 @@ data&&setEditAssignment(data)
 const navigate=useNavigate()
 
 const toast=useToast()
-console.log(editassignment)
+// console.log(editassignment)
   const handleSubmit = (e) => {
+    // console.log(editassignment)
     e.preventDefault();
     // You can add your logic to handle the form submission here
     dispatch(insteditassignment(token,id,editassignment)).then((res)=>{
@@ -66,6 +88,7 @@ console.log(editassignment)
 dispatch(editassignmentsuccess())
 navigate("/instructer")
     }).catch((err)=>{
+      // console.log(err)
       if(err.message=="Network Error"){
         toast({description:"Please check your internet connection",status:"error",position:"top",duration:3000})
     
@@ -167,7 +190,7 @@ if(isLoading){
  colorScheme="teal"
 
  size="lg"
- isFullWidth
+
 >
 <div className="spinner-grow text-primary" role="status">
       <span className="visually-hidden">Loading...</span>
@@ -188,7 +211,7 @@ if(isLoading){
             colorScheme="teal"
             type="submit"
             size="lg"
-            isFullWidth
+          
           >
             Edit
           </Button>}

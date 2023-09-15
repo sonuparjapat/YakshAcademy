@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getstudentprofile } from '../../../Redux/StudentSide/GetProfile/Action'
 import StudentNavbar from '../studentComponents/Navbar'
+import Studentassignments from './AllAssignments/Studentassignments'
 
 export default function Assignments() {
 
@@ -21,6 +22,6 @@ dispatch(getstudentprofile(token))
   
     
     
-    Assignments</>
+   <Studentassignments/></>
   )
 }
