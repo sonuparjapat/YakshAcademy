@@ -16,6 +16,7 @@ import InstructerNavbar from '../pages/Instructer/InstructerComponents/Instructe
 import InstructerProfile from '../pages/Instructer/Instructerpages/InstructerProfile/InstructerProfile'
 import InstructerAssignments from '../pages/Instructer/Instructerpages/InstructerAssignments/InstructerAssignments'
 import InstructerCreateAssignments from '../pages/Instructer/Instructerpages/InstructerCreateAssignments/InstructerCreateAssignments'
+import EditAssignment from '../pages/Instructer/EditAssignment/EditAssignment'
 
 
 export default function AllRoutes() {
@@ -43,6 +44,7 @@ const location=useLocation()
     <Route path="/instructerprofile" element={<InstructerPrivateRoute><InstructerProfile/></InstructerPrivateRoute>}></Route>
     <Route path="/instructerassignments" element={<InstructerPrivateRoute><Instructer/></InstructerPrivateRoute>}></Route>
     <Route path="/createassignments" element={<InstructerPrivateRoute><InstructerCreateAssignments/></InstructerPrivateRoute>}></Route>
+    <Route path="/editassignment/:id" element={<EditAssignment/>}></Route>
     <Route path="" element={<InstructerPrivateRoute></InstructerPrivateRoute>}></Route>
 </Routes>
 

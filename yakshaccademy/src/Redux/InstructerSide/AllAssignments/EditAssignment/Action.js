@@ -13,9 +13,9 @@ export const editassignmentsuccess=()=>{
 export const editassignmentfailure=()=>{
     return {type:editassignmentfail}
 }
-export const editassignment=(token,id)=>(dispatch)=>{
+export const insteditassignment=(token,id,obj)=>(dispatch)=>{
     dispatch(editassignmentrequest())
-    return axios.patch(`${mainapi}/assignment/patchassignment/${id}`,{
+    return axios.patch(`${mainapi}/assignment/patchassignment/${id}`,obj,{
         headers:{
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`

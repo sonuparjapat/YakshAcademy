@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getinstructerprofile } from '../../../../Redux/InstructerSide/GetInstructerProfile/Action'
 import { instassignments } from '../../../../Redux/InstructerSide/AllAssignments/Action'
-import { Box, Button, FormControl, FormLabel, Input, Select, Text, Textarea,Stack } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, Input, Select, Text, Textarea,Stack,AlertDialog } from '@chakra-ui/react'
 
 import Filterdata from './Filteration'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { Pagination, ThemeProvider, createTheme } from '@mui/material'
+
+import DeleteDialog from './DeleteDialoge'
 const initialdata={
   "name":"",
   "instructername":"",
@@ -16,6 +18,7 @@ const initialdata={
 }
 const defaultTheme =createTheme();
 export default function InstructerAssignments() {
+  const [afterdelete,setAfterdelete]=useState(false)
 
   const [editmodule,setEditModule]=useState(false)
   const [assignment,setAssignment]=useState(initialdata)
@@ -24,6 +27,7 @@ export default function InstructerAssignments() {
   const {name,instructername,type,date,deadline}=assignment
   const dispatch=useDispatch()
   const logindata=useSelector((state)=>state.loginreducer)
+  const [deleteassignment,setDeleteAssignment]=useState(false)
   const {token}=logindata
 const instassignmentsalldata=useSelector((state)=>state.instassignmentsreducer)
 const {isLoading,isError,data,totalcount}=instassignmentsalldata
@@ -44,13 +48,16 @@ const [page,setPage]=useState(searchParams.get("page")||1)
      
   dispatch(getinstructerprofile(token))
   dispatch(instassignments(token,obj))
-    },[location.search])
-
+    },[location.search,afterdelete])
+const refresh=()=>{
+  setAfterdelete(!afterdelete)
+}
 // handling edit and deleteing part
 const handleedit=(id)=>{
 setEditModule(!editmodule)
 }
 const handledelete=(id)=>{
+setDeleteAssignment(!deleteassignment)
 
 }
 const handlepagechange=(e,pageno)=>{
@@ -98,13 +105,13 @@ const handleChange=()=>{
       
       <Box w={"80%"} textAlign={"left"} margin="auto" shadow={"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"} key={index}>
         <Box display={["block","flex","flex","flex","flex"]} justifyContent={"space-around"} pl="20px" pt="20px" pb="20px">
-<Box><Text fontWeight={500} >{item.name}</Text>
+<Box w={["100%","75%","75%","75%",'75%']} pr="20px"><Text fontWeight={500} >{item.name}</Text>
 <Text>{item.description}</Text>
 <Text>Created By:-<Text color="blue.300" display={"inline"} fontWeight={"bold"}>{item.instructername}</Text> on the date <Text color="blue.300" display={"inline"} fontWeight={"bold"}>{item.date}</Text></Text>
-    </Box><Box pr="10px" display={"grid"} gridTemplateColumns={["repeat(2,1fr)","repeat(1,1fr)","repeat(1,1fr)","repeat(1,1fr)","repeat(1,1fr)"]}>
+    </Box><Box w={["100%","30%","30%","30%","30%"]} pr="10px" display={"grid"} gridTemplateColumns={["repeat(2,1fr)","repeat(1,1fr)","repeat(1,1fr)","repeat(1,1fr)","repeat(1,1fr)"]} gap="20px">
       
      <Link to={`/editassignment/${item._id}`}> <Button backgroundColor={"green.100"} >Edit</Button></Link>
-      <Button  backgroundColor={"red.100"}  onClick={()=>handledelete(item._id)}>Delete</Button>
+      <DeleteDialog id={item._id} refresh={refresh}/>
       
       
       
@@ -122,7 +129,7 @@ const handleChange=()=>{
       ):<h1>No data found</h1>}
     
 </Box>  
-
+{/* {deleteassignment&&<DeleteDialog/>} */}
       </div>
   )
 }

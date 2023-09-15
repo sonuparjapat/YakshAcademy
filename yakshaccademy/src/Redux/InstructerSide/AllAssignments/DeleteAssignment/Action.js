@@ -15,7 +15,7 @@ export const deleteassignmentfailure=()=>{
 
 export const deleteassignment=(token,id)=>(dispatch)=>{
     dispatch(deleteassignmentrequest())
-    delete axios.delete(`${mainapi}/assignment/deleteassignment/${id}`,{
+   return axios.delete(`${mainapi}/assignment/deleteassignment/${id}`,{
         headers:{
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
