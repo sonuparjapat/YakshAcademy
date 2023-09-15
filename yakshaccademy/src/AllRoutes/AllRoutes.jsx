@@ -6,7 +6,7 @@ import Student from '../pages/Student/Student'
 import Instructer from '../pages/Instructer/instructer'
 import StudentPrivateRoute from './PrivateRoutes/StudentPrivateRoute'
 import InstructerPrivateRoute from './PrivateRoutes/InstructerPrivateRoute'
-import Assignments from '../pages/Student/Studentpages/Assignments'
+
 import { useSelector } from 'react-redux'
 
 import StudentNavbar from '../pages/Student/studentComponents/Navbar'
@@ -17,6 +17,7 @@ import InstructerProfile from '../pages/Instructer/Instructerpages/InstructerPro
 import InstructerAssignments from '../pages/Instructer/Instructerpages/InstructerAssignments/InstructerAssignments'
 import InstructerCreateAssignments from '../pages/Instructer/Instructerpages/InstructerCreateAssignments/InstructerCreateAssignments'
 import EditAssignment from '../pages/Instructer/EditAssignment/EditAssignment'
+import Studentassignments from '../pages/Student/Studentpages/AllAssignments/Studentassignments'
 
 
 export default function AllRoutes() {
@@ -35,7 +36,8 @@ const location=useLocation()
  
 
    <Route path="/student" element={<StudentPrivateRoute><Student/></StudentPrivateRoute>}></Route>
-   <Route path="/assignments" element={<StudentPrivateRoute><Assignments/></StudentPrivateRoute>}></Route>
+
+
    <Route path="/profile" element={<StudentPrivateRoute><StudentProfile/></StudentPrivateRoute>}></Route>
 
   

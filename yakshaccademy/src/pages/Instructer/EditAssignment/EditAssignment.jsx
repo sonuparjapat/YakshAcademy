@@ -26,12 +26,13 @@ const initialdata={
   deadline:"",
   date:"",
   link: '',
+  field:"",
 
-  type: '',
+  
 }
 export default function EditAssignment(){
   const [editassignment, setEditAssignment] = useState(initialdata)
-  const {name,description,instructername,date,link,deadline,type}=editassignment
+  const {name,description,instructername,date,link,deadline,field}=editassignment
   const {id}=useParams()
 
   const dispatch=useDispatch()
@@ -79,6 +80,7 @@ const navigate=useNavigate()
 const toast=useToast()
 // console.log(editassignment)
   const handleSubmit = (e) => {
+    // console.log(editassignment)
     // console.log(editassignment)
     e.preventDefault();
     // You can add your logic to handle the form submission here
@@ -175,8 +177,8 @@ if(isLoading){
           <FormControl isRequired>
             <FormLabel>Stack</FormLabel>
             <Select
-              name="type"
-              value={type}
+              name="field"
+              value={field}
               onChange={handleChange}
             >
               <option value="frontend">Frontend</option>

@@ -1,0 +1,3 @@
+export const getstudentassignmentreq="getstudentassignmetreq"
+export const getstudentassignmentsucc="studentassignmentsucc"
+export const getstudentassignmentfail="studentassignmentfail"

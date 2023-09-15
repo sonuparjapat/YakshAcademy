@@ -1,11 +1,12 @@
 import React from 'react'
 import StudentNavbar from './studentComponents/Navbar'
-import Assignments from './Studentpages/Assignments'
+import Studentassignments from './Studentpages/AllAssignments/Studentassignments'
+
 
 export default function Student() {
   return (
    <>
-<Assignments/>
+<Studentassignments/>
   </>
   )
 }

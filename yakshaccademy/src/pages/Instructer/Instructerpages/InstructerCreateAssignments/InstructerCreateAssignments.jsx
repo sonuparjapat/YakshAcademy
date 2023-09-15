@@ -24,17 +24,18 @@ const initialdata={
   date:"",
   link: '',
   deadline: '',
-  type: '',
+  field:'',
+  type:""
 }
 const CreateAssignment = () => {
   const [assignment, setAssignment] = useState(initialdata)
   const dispatch=useDispatch()
   const logindata=useSelector((state)=>state.loginreducer)
-  const {username,type,token}=logindata
+  const {username,type,token,field}=logindata
   const {isLoading}=useSelector((state)=>state.createassignmentreducer)
   
 useEffect(()=>{
-setAssignment((pre)=>({...pre,instructername:username,type:type}))
+setAssignment((pre)=>({...pre,instructername:username,type:type,field:field}))
 },[])
 
   const handleChange = (e) => {
@@ -48,6 +49,7 @@ const toast=useToast()
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // console.log(assignment)
     // You can add your logic to handle the form submission here
     dispatch(createassignment(token,assignment)).then((res)=>{
       toast({description:res.data.msg,status:"success",position:"top",duration:3000})
@@ -138,10 +140,11 @@ dispatch(createassignmentsuccess())
           <FormControl isRequired>
             <FormLabel>Stack</FormLabel>
             <Select
-              name="type"
-              value={assignment.type}
+              name="field"
+              value={assignment.field}
               onChange={handleChange}
             >
+              {/* <option>Select</option> */}
               <option value="frontend">Frontend</option>
               <option value="backend">Backend</option>
               <option value="fullstack">Full Stack</option>

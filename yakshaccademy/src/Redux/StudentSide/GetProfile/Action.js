@@ -21,7 +21,7 @@ export const getstudentprofile=(token)=>(dispatch)=>{
             "Authorization":`Bearer ${token}`
         }
     }).then((res)=>{
-    console.log(res)
+    // console.log(res)
         dispatch(getstudentprofilesuccess(res.data))}).catch((err)=>
         dispatch(getstudentprofilefailure()))
 }
