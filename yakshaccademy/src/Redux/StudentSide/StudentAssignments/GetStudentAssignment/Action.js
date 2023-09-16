@@ -12,18 +12,18 @@ export const getstudentassignfailure=()=>{
     return {type:getstudentassignmentfail}
 }
 
-export const getstudentassignment=(token)=>async(dispatch)=>{
-    // obj={...obj,limit:10,page:1}
+export const getstudentassignment=(token,obj)=>async(dispatch)=>{
+    obj={...obj,limit:10}
     dispatch(getstudentassignmentrequest())
-   await axios.get(`http://localhost:8080/assignment/getassignments`,{
-        // params:obj,
+   await axios.get(`${mainapi}/assignment/getassignments`,{
+        params:obj,
         headers:{
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         }
     }).then((res)=>{
         // console.log(res)
-        console.log(res)
+        // console.log(res)
        dispatch(getstudentassignsuccess(res.data))
     }).catch((err)=>{
         // console.log(err)

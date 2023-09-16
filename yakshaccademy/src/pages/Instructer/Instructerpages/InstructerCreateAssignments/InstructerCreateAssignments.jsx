@@ -32,6 +32,7 @@ const CreateAssignment = () => {
   const dispatch=useDispatch()
   const logindata=useSelector((state)=>state.loginreducer)
   const {username,type,token,field}=logindata
+  // console.log("logindata",logindata)
   const {isLoading}=useSelector((state)=>state.createassignmentreducer)
   
 useEffect(()=>{
@@ -48,6 +49,7 @@ setAssignment((pre)=>({...pre,instructername:username,type:type,field:field}))
 const toast=useToast()
 
   const handleSubmit = (e) => {
+    
     e.preventDefault();
     // console.log(assignment)
     // You can add your logic to handle the form submission here
