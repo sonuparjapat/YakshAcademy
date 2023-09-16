@@ -21,7 +21,7 @@ export const reducer=(state=initialdata,action)=>{
 
         }
         default:{
-            return {state}
+            return state
         }
     }
 }

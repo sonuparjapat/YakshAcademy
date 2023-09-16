@@ -14,12 +14,12 @@ const [data,setData]=useState([])
     // console.log(assignments)
     // console.log(assignments)
     const assignmentdata=useSelector((state)=>state.getstudentassignmentreducer)
-    const {assignments,getisLoading}=assignmentdata
-    // console.log(assignments)
+    const {assignments,getisLoading,getisError}=assignmentdata
+    console.log(assignments,"assignment",getisLoading,getisError)
     const {token}=logindata
     useEffect(()=>{
         dispatch(getstudentprofile(token))
-        dispatch(getstudentassignment(token))
+      dispatch(getstudentassignment(token))
         
       
           },[])
