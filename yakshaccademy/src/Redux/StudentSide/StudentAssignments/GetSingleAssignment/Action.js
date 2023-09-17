@@ -14,15 +14,11 @@ export const studentsingleassinfailure=()=>{
 }
 
 export const studentsingleassignment=(token,id)=>(dispatch)=>{
-    dispatch(studentsingleassignmentrequest())
-    axios.get(`${mainapi}/assignment/getassignment/${id}`,{
+  dispatch(studentsingleassignmentrequest())
+ return axios.get(`${mainapi}/assignment/getassignment/${id}`,{
         headers:{
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         }
-    }).then((res)=>{
-        dispatch(studentsignleassignmentsuccess(res.data.msg))
-    }).catch((err)=>{
-        dispatch(studentsingleassinfailure())
     })
 }
