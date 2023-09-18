@@ -67,7 +67,7 @@ obj.limit=10
  <Box w={["100%","75%","75%","75%",'75%']} pr="20px"> <Link to={`/details/${item._id}`}>
     <Text color="blue.200" fontWeight={500} >{item.name}-<Text display={"inline"} color="black" bg="blackAlpha.300">{item.field&&item.field}</Text></Text></Link>
   {/* <Text>{item.description}</Text> */}
-  <Text><Text  display={"inline"} fontWeight={"bold"}>{item.instructername}</Text> created <Text  display={"inline"} fontWeight={"bold"}>Assignment Problem's at {item.date}</Text></Text>
+  <Text><Text  display={"inline"} fontWeight={"bold"}>{item.instructername}</Text> created Assignment Problem's at <Text  display={"inline"} fontWeight={"bold"}>{item.date}</Text></Text>
       </Box><Box  w={["100%","30%","30%","30%","30%"]}  pr="10px" display={["none","flex",'flex',"flex","flex"]} justifyContent={"center"} alignItems={"center"}>
         
        <Link to={`/details/${item._id}`}> <Button  mt={["10px","30px","30px","30px","30px"]} backgroundColor={"green.100"} >Details</Button></Link>

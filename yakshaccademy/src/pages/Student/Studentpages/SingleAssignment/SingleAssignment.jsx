@@ -5,6 +5,8 @@ import { studentsignleassignmentsuccess, studentsingleassignment, studentsinglea
 import { Box, Divider, Heading, Input, Link, Text,Button, useToast } from '@chakra-ui/react'
 import { ArrowDownIcon } from '@chakra-ui/icons'
 import { submitstdassignfailure, submitstdassignsuccess, submitstudentassignment } from '../../../../Redux/StudentSide/StudentAssignments/SubmitAssignment/Action'
+import { getsubassignfailure, getsubmittedassignment, getsubmittedassignmentsuccess } from '../../../../Redux/StudentSide/StudentAssignments/getSubmitedassign/Action'
+import { completeassignfailure, completeassignment, completeassigsuccess } from '../../../../Redux/StudentSide/StudentAssignments/CompleteAssignment/Action'
 
 const initialdata={
     link:"",
@@ -19,9 +21,11 @@ studentname:"",
 }
 
 export default function StudentSingleAssignment() {
+    const [completionstatus,setCompletionstatus]=useState("")
     const [inputvalue,setInputvalue]=useState("")
     const [submitvalue,setSubmitvalue]=useState(false)
     const [submissiondata,setSubmissiondata]=useState(initialdata)
+    const [handlererender,setHandlererender]=useState(false)
     const {id}=useParams()
     const dispatch=useDispatch()
     const assignmentdata=useSelector((state)=>state.studentsingleassignmentreducer)
@@ -29,12 +33,16 @@ export default function StudentSingleAssignment() {
     const {token,type,username}=logindata
     const {singleisLoading,data}=assignmentdata
     const submitdata=useSelector((state)=>state.submitstudentassignmentreducer)
-    const {submitisLoading}=submissiondata
+    const {submitisLoading}=submitdata
+ const {completeisLoading,msg}=useSelector((state)=>state.completeassignmentreducer)
+
+ const [statusmsg,setStatusmsg]=useState("")
+
  
-    // console.log(data,singleisLoading)
 
     useEffect(()=>{
         dispatch(studentsingleassignment(token,id)).then((res)=>{
+
             setSubmissiondata((pre)=> ({...pre,studentname:username,field:res.data.msg.field,instId:res.data.msg.userId,assignmentId:res.data.msg._id,assignmentname:res.data.msg.name,
                 type:type,instructername:res.data.msg.instructername}))
             dispatch(studentsignleassignmentsuccess(res.data.msg))
@@ -42,12 +50,21 @@ export default function StudentSingleAssignment() {
 
             dispatch(studentsingleassinfailure())
         })
-    
-    
-    },[dispatch])
+       
+    dispatch(getsubmittedassignment(token,id)).then((res)=>{
+        dispatch(getsubmittedassignmentsuccess(res.data.msg))
+    //  console.log(res)
+setCompletionstatus(res.data.msg)
+    }).catch((err)=>{
+        dispatch(getsubassignfailure())
+        console.log(err)
+    })
+   
+    },[handlererender])
+// console.log(completionstatus)
     const handlechange=(e)=>{
         setInputvalue(e.target.value)
-        setSubmissiondata((pre)=>({...pre,link:inputvalue}))   
+        setSubmissiondata((pre)=>({...pre,link:e.target.value}))   
     }
     const toast=useToast()
 
@@ -58,12 +75,13 @@ setSubmitvalue(!submitvalue)
 
 
 const {link}=submissiondata
-if(link){
+if(!link){
 toast({description:"Please provide the Assignemt link","status":"error","position":"top",duration:2000})
 }else{
 dispatch(submitstudentassignment(token,submissiondata)).then((res)=>{
-    toast({description:res.data.msg,"status":"success","position":"top",duration:2000})
+    toast({description:res.data.msg,"status":"success","position":"top",duration:4000})
     dispatch(submitstdassignsuccess())
+    setHandlererender(!handlererender)
     
 }).catch((err)=>{
     if(err.message=="Network Error"){
@@ -77,7 +95,27 @@ dispatch(submitstudentassignment(token,submissiondata)).then((res)=>{
 })
 // console.log(submissiondata)
     }}
+   
+    // completeionstatus request
+   const completestatus=(id)=>{
+// console.log(id)
+dispatch(completeassignment(token,id)).then((res)=>{
+    // console.log(res)
+    toast({description:res.data.msg,status:"success","position":"top",duration:2000})
+    dispatch(completeassigsuccess(res.data.msg))
+    setHandlererender(!handlererender)
+}).catch((err)=>{
+    if(err.message=="Network Error"){
+        toast({description:"Please check your internet connection",status:"error",position:"top",duration:3000})
     
+        dispatch(completeassignfailure())
+      }else{
+        toast({description:err.response.data.msg,status:"error","position":"top",duration:"2000"})
+        dispatch(completeassignfailure())
+      } 
+})
+
+   }
 
 
 
@@ -119,8 +157,11 @@ dispatch(submitstudentassignment(token,submissiondata)).then((res)=>{
 
 
 </Box>
-<Text mt="20px">Please after submition click here to complete assignment <ArrowDownIcon/></Text>
-<Button mt="10px" backgroundColor={"green.200"}  isDisabled={!(inputvalue !== "" && submitvalue)}>Completed</Button>
+<Text mt="10px">Please after submition click here to complete assignment <ArrowDownIcon/></Text>
+{completeisLoading?
+    <Button mt="10px"  backgroundColor={"green.200"}  isDisabled={!(inputvalue !== "" && submitvalue)}>Loading...</Button>:
+    <Button mt="10px" onClick={()=>completestatus(id)} backgroundColor={"green.200"} isDisabled={completionstatus==false?false:true} >{completionstatus?"Completed":"NotCompleted"}</Button>}
+   <Box w="40%" margin="auto"> <Text bg="yellow.200" mt="20px" >{msg}</Text></Box>
 </Box>
 
 

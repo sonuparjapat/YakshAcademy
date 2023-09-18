@@ -6,8 +6,8 @@ export const completeassigrequest=()=>{
     return {type:completassignreq}
 }
 
-export const completeassigsuccess=()=>{
-    return {type:completeassignsucc}
+export const completeassigsuccess=(payload)=>{
+    return {type:completeassignsucc,payload}
 }
 
 export const completeassignfailure=()=>{
@@ -17,7 +17,8 @@ export const completeassignfailure=()=>{
 
 export const completeassignment=(token,id)=>(dispatch)=>{
     dispatch(completeassigrequest())
-    return axios.patch(`${mainapi}/assignment/statuschange/${id}`,{
+    // console.log(token)
+    return axios.patch(`${mainapi}/assignment/statuschange/${id}`,{},{
         headers:{
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
