@@ -7,7 +7,9 @@ import { ArrowDownIcon } from '@chakra-ui/icons'
 import { submitstdassignfailure, submitstdassignsuccess, submitstudentassignment } from '../../../../Redux/StudentSide/StudentAssignments/SubmitAssignment/Action'
 import { getsubassignfailure, getsubmittedassignment, getsubmittedassignmentsuccess } from '../../../../Redux/StudentSide/StudentAssignments/getSubmitedassign/Action'
 import { completeassignfailure, completeassignment, completeassigsuccess } from '../../../../Redux/StudentSide/StudentAssignments/CompleteAssignment/Action'
-
+import io from 'socket.io-client';
+import { mainapi } from '../../../../Redux/Api/mainapi'
+const socket=io(`${mainapi}`)
 const initialdata={
     link:"",
 studentname:"",
@@ -21,6 +23,7 @@ studentname:"",
 }
 
 export default function StudentSingleAssignment() {
+    const [newassignment,setNewAssignment]=useState(null)
     const [completionstatus,setCompletionstatus]=useState("")
     const [inputvalue,setInputvalue]=useState("")
     const [submitvalue,setSubmitvalue]=useState(false)
@@ -59,7 +62,13 @@ setCompletionstatus(res.data.msg)
         dispatch(getsubassignfailure())
         console.log(err)
     })
-   
+    // handling realtime connection????????????????????????????????????????????????????????????????????????????????????????
+    socket.on('connect', () => {
+        console.log('WebSocket connected');
+      });
+    socket.on('new-assignment', (data) => {
+        setNewAssignment(data.assignment);
+      });
     },[handlererender])
 // console.log(completionstatus)
     const handlechange=(e)=>{
@@ -68,7 +77,7 @@ setCompletionstatus(res.data.msg)
     }
     const toast=useToast()
 
-
+console.log(newassignment)
     // Making request to submitassignment
     const handlesubmit=()=>{
 setSubmitvalue(!submitvalue)

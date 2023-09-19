@@ -106,7 +106,7 @@ const handleChange=()=>{
       <Box w={"80%"} textAlign={"left"} margin="auto" shadow={"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"} key={index}>
         <Box display={["block","flex","flex","flex","flex"]} justifyContent={"space-around"} pl="20px" pt="20px" pb="20px">
 <Box w={["100%","75%","75%","75%",'75%']} pr="20px"><Text fontWeight={500} >{item.name}</Text>
-<Text>{item.description}</Text>
+{/* <Text>{item.description}</Text> */}
 <Text>Created By:-<Text color="blue.300" display={"inline"} fontWeight={"bold"}>{item.instructername}</Text> on the date <Text color="blue.300" display={"inline"} fontWeight={"bold"}>{item.date}</Text></Text>
     </Box><Box w={["100%","30%","30%","30%","30%"]} pr="10px" display={"grid"} gridTemplateColumns={["repeat(2,1fr)","repeat(1,1fr)","repeat(1,1fr)","repeat(1,1fr)","repeat(1,1fr)"]} gap="20px">
       
