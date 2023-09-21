@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getstudentassignment } from '../../../../Redux/StudentSide/StudentAssignments/GetStudentAssignment/Action'
-import { Box,Text,Button } from '@chakra-ui/react'
+import { Box,Text,Button, useToast } from '@chakra-ui/react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { getstudentprofile } from '../../../../Redux/StudentSide/GetProfile/Action'
+import io from "socket.io-client"
+import notificationsound from "../../../../commonaudio/mainnotificationsound.mp3"
+import { mainapi } from '../../../../Redux/Api/mainapi'
+
+const socket=io(`${mainapi}`)
 export default function Studentassignments() {
 
     const dispatch=useDispatch()
     const logindata=useSelector((state)=>state.loginreducer)
 
 const [data,setData]=useState([])
-
+const [notificationdata,setNotificationdata]=useState(null)
+const notificationsoundaudio=new Audio(notificationsound)
     // console.log(assignments)
     // console.log(assignments)
     const [searchParams]=useSearchParams()
     const assignmentdata=useSelector((state)=>state.getstudentassignmentreducer)
     const {assignments,getisLoading,getisError}=assignmentdata
-
+const toast=useToast()
     // console.log(assignments,"assignment",getisLoading,getisError)
     const {token}=logindata
     const location=useLocation()
@@ -30,10 +36,19 @@ obj.limit=10
         dispatch(getstudentprofile(token))
       dispatch(getstudentassignment(token,obj))
         
-      
+      socket.on("new-assignment",(notification)=>{
+       
+     setNotificationdata(notification.assignment)
+      })
           },[location.search])
 
+          console.log(notificationdata)
+if(notificationdata){
+ notificationsoundaudio.play()
+  toast({description:`Your instructer ${notificationdata.instructername} create a new assignment`,position:"bottom-right",status:"success",duration:2000})
+      
 
+}
     if(getisLoading){
         return (
           <Box>

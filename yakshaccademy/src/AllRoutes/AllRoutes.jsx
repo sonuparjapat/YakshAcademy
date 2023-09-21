@@ -19,6 +19,7 @@ import InstructerCreateAssignments from '../pages/Instructer/Instructerpages/Ins
 import EditAssignment from '../pages/Instructer/EditAssignment/EditAssignment'
 import Studentassignments from '../pages/Student/Studentpages/AllAssignments/Studentassignments'
 import StudentSingleAssignment from '../pages/Student/Studentpages/SingleAssignment/SingleAssignment'
+import StNotifications from '../pages/Student/Studentpages/StNotifications/StNotifications'
 
 
 export default function AllRoutes() {
@@ -37,7 +38,7 @@ const location=useLocation()
  
 
    <Route path="/student" element={<StudentPrivateRoute><Student/></StudentPrivateRoute>}></Route>
-
+<Route path="/notifications" element={<StNotifications/>}></Route>
    <Route path="/details/:id" element={<StudentPrivateRoute><StudentSingleAssignment/></StudentPrivateRoute>}></Route>
    <Route path="/profile" element={<StudentPrivateRoute><StudentProfile/></StudentPrivateRoute>}></Route>
 

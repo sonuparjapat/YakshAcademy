@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Flex,
@@ -16,6 +16,7 @@ import {
   useBreakpointValue,
   useDisclosure,
   Avatar,
+  useToast,
 } from '@chakra-ui/react'
 import {
   HamburgerIcon,
@@ -25,9 +26,27 @@ import {
 } from '@chakra-ui/icons'
 import logo from "../Images/Yaksh.png"
 import { Link, useLocation } from 'react-router-dom'
+import io from "socket.io-client"
+import { mainapi } from '../../../Redux/Api/mainapi'
+import notificationsound from "../../../commonaudio/mainnotificationsound.mp3"
+import { Notifications } from '@mui/icons-material'
+import { useDispatch, useSelector } from 'react-redux'
+import { countvalue } from '../../../Redux/StudentSide/NotificationReducer/Action'
+const socket=io(`${mainapi}`)
 export default function StudentNavbar() {
+  const [notifications,setNotifications]=useState(null)
+  // const [count,setCount]=useState(0)
+  const notificationsoundaudio=new Audio(notificationsound)
   const { isOpen, onToggle } = useDisclosure()
+  const dispatch=useDispatch()
+const [count,setCount]=useState(0)
 
+  console.log(count)
+  const location=useLocation()
+  const toast=useToast()
+
+
+// console.log(notifications)
   return (
     <Box>
       <Flex
@@ -60,7 +79,7 @@ export default function StudentNavbar() {
           </Text>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav />
+            <DesktopNav notifications={notifications} count={count}  />
           </Flex>
         </Flex>
 
@@ -95,11 +114,16 @@ export default function StudentNavbar() {
   )
 }
 
-const DesktopNav = () => {
+
+const DesktopNav = ({count,notifications,setNotifications}) => {
   const linkColor = useColorModeValue('gray.600', 'gray.200')
   const linkHoverColor = useColorModeValue('gray.800', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
 const location=useLocation()
+// useEffect(()=>{
+//   location.pathname=="/notifications"&&handlecount(0)
+//   console.log(location.pathname)
+// },[count])
   return (
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
@@ -178,6 +202,7 @@ const NAV_ITEMS = [
      
   },
   {
+
     label: 'Notifications',
    to:"notifications"
   },

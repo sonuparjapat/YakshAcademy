@@ -69,6 +69,14 @@ setCompletionstatus(res.data.msg)
     socket.on('new-assignment', (data) => {
         setNewAssignment(data.assignment);
       });
+
+      socket.on("connect_error", (error) => {
+        console.error("WebSocket connection error:", error);
+      });
+      return ()=>{
+        socket.disconnect()
+      }
+      
     },[handlererender])
 // console.log(completionstatus)
     const handlechange=(e)=>{
@@ -78,6 +86,9 @@ setCompletionstatus(res.data.msg)
     const toast=useToast()
 
 console.log(newassignment)
+
+
+
     // Making request to submitassignment
     const handlesubmit=()=>{
 setSubmitvalue(!submitvalue)

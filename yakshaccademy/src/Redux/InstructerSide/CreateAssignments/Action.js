@@ -14,7 +14,7 @@ export const createassignmentfailure=()=>{
 
 export const createassignment=(token,obj)=>(dispatch)=>{
     dispatch(createassignmentrequest())
-    return axios.post(`http://localhost:8080/assignment/instructerassignment`,obj,{
+    return axios.post(`${mainapi}/assignment/instructerassignment`,obj,{
         headers:{
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
