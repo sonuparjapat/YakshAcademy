@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getstudentassignment } from '../../../../Redux/StudentSide/StudentAssignments/GetStudentAssignment/Action'
-import { Box,Text,Button, useToast } from '@chakra-ui/react'
+import { Box,Text,Button, useToast, Divider } from '@chakra-ui/react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { getstudentprofile } from '../../../../Redux/StudentSide/GetProfile/Action'
 import io from "socket.io-client"
@@ -36,19 +36,13 @@ obj.limit=10
         dispatch(getstudentprofile(token))
       dispatch(getstudentassignment(token,obj))
         
-      socket.on("new-assignment",(notification)=>{
+    //   socket.on("new-assignment",(notification)=>{
        
-     setNotificationdata(notification.assignment)
-      })
+    //  setNotificationdata(notification.assignment)
+    //   })
           },[location.search])
 
-          console.log(notificationdata)
-if(notificationdata){
- notificationsoundaudio.play()
-  toast({description:`Your instructer ${notificationdata.instructername} create a new assignment`,position:"bottom-right",status:"success",duration:2000})
-      
 
-}
     if(getisLoading){
         return (
           <Box>
@@ -77,7 +71,7 @@ if(notificationdata){
         {typeof assignments!=="undefined" &&assignments.length>=1?
         assignments.map((item,index)=>
         
-        <Box w={"80%"} textAlign={"left"} margin="auto" mt="30px" shadow={"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"} key={index}>
+        <Box w={"80%"} textAlign={"left"} margin="auto" mt="30px"  key={index}>
        <Link to={`/details/${item._id}`}>    <Box display={["block","flex","flex","flex","flex"]} justifyContent={"space-around"} pl="20px" pt="20px" pb="20px">
  <Box w={["100%","75%","75%","75%",'75%']} pr="20px"> <Link to={`/details/${item._id}`}>
     <Text color="blue.200" fontWeight={500} >{item.name}-<Text display={"inline"} color="black" bg="blackAlpha.300">{item.field&&item.field}</Text></Text></Link>
@@ -95,10 +89,10 @@ if(notificationdata){
       
         
         
-        
+        <Divider borderColor="gray.300" borderWidth="1px"/>
         
         </Box>
-      
+     
         
         
         ):<h1>No data found</h1>}

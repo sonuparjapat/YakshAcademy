@@ -35,15 +35,27 @@ import { countvalue } from '../../../Redux/StudentSide/NotificationReducer/Actio
 const socket=io(`${mainapi}`)
 export default function StudentNavbar() {
   const [notifications,setNotifications]=useState(null)
-  // const [count,setCount]=useState(0)
-  const notificationsoundaudio=new Audio(notificationsound)
-  const { isOpen, onToggle } = useDisclosure()
-  const dispatch=useDispatch()
-const [count,setCount]=useState(0)
 
-  console.log(count)
-  const location=useLocation()
+  const [notificationaudio,setNotificationaudio]=useState(new Audio(notificationsound))
+  const { isOpen, onToggle } = useDisclosure()
+
+
   const toast=useToast()
+useEffect(()=>{
+socket.on("new-assignment",(notificationdata)=>{
+  // console.log(notificationdata)
+    toast({description:`Your instructer ${notificationdata.assignment.instructername} create a new assignment`,position:"bottom-right",status:"success",duration:2000})
+  notificationaudio.play()
+
+})
+return ()=>{
+  socket.close()
+}
+},[])
+
+
+
+
 
 
 // console.log(notifications)
@@ -79,7 +91,7 @@ const [count,setCount]=useState(0)
           </Text>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav notifications={notifications} count={count}  />
+            <DesktopNav   />
           </Flex>
         </Flex>
 
@@ -115,7 +127,7 @@ const [count,setCount]=useState(0)
 }
 
 
-const DesktopNav = ({count,notifications,setNotifications}) => {
+const DesktopNav = () => {
   const linkColor = useColorModeValue('gray.600', 'gray.200')
   const linkHoverColor = useColorModeValue('gray.800', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')

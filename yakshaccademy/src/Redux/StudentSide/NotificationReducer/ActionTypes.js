@@ -1,1 +1,3 @@
-export const countsucc="countsucc"
+export const getnotreq="getnotreq"
+export const getnotsucc="getnotsucc"
+export const getnotfail="getnotfail"

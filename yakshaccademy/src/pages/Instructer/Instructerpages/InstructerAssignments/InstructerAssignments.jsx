@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getinstructerprofile } from '../../../../Redux/InstructerSide/GetInstructerProfile/Action'
 import { instassignments } from '../../../../Redux/InstructerSide/AllAssignments/Action'
-import { Box, Button, FormControl, FormLabel, Input, Select, Text, Textarea,Stack,AlertDialog } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, Input, Select, Text, Textarea,Stack,AlertDialog, Divider } from '@chakra-ui/react'
 
 import Filterdata from './Filteration'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
@@ -103,7 +103,7 @@ const handleChange=()=>{
       {data!=="undefined"&&data.length>=1?
       data.map((item,index)=>
       
-      <Box w={"80%"} textAlign={"left"} margin="auto" shadow={"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"} key={index}>
+      <Box w={"80%"} textAlign={"left"} margin="auto"  key={index}>
         <Box display={["block","flex","flex","flex","flex"]} justifyContent={"space-around"} pl="20px" pt="20px" pb="20px">
 <Box w={["100%","75%","75%","75%",'75%']} pr="20px"><Text fontWeight={500} >{item.name}</Text>
 {/* <Text>{item.description}</Text> */}
@@ -120,7 +120,7 @@ const handleChange=()=>{
     
       
       
-      
+      <Divider borderColor="gray.300" borderWidth="1px"/>
       
       </Box>
     
