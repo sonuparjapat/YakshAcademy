@@ -8,7 +8,7 @@ export default function NotificationDetails() {
   const {id}=useParams()
   const notinoti=useSelector((state)=>state.getsinglenotireducer)
   const {notisLoading,notisError,noti}=notinoti
-  console.log(noti)
+  // console.log(noti)
   const loginnoti=useSelector((state)=>state.loginreducer)
   const {token}=loginnoti
   const dispatch=useDispatch()
@@ -28,12 +28,12 @@ dispatch(getsinglenoti(token,id))
   }
   return (
     <>
-    {typeof noti!=="undefined"&&
+    {typeof noti!=="undefined"&&notisLoading==false&&
     <Box>
      <Box textAlign={"left"} >
- <Text pl={["50px","50px","100px","100px","100px"]} pt="50px"  fontSize={["15px","15px","20px","20px","20px"]} fontWeight={600} fontStyle={"bold"}>{noti.instructer.name&&noti.instructer.name}-<Text display={"inline"} bg="yellow.200">{noti.field&&noti.field}</Text>
+ <Text pl={["50px","50px","100px","100px","100px"]} pt="50px"  fontSize={["15px","15px","20px","20px","20px"]} fontWeight={600} fontStyle={"bold"}>{noti.instructer&&noti.instructer.name&&noti.instructer.name}-<Text display={"inline"} bg="yellow.200">{noti.field&&noti.field}</Text>
  </Text>
- <Text pl={["50px","50px","100px","100px","100px"]}  fontSize={["13px","13px","14px","15px","16px"]} fontWeight={600} color={"gray.500"} fontStyle={"bold"}>{`${noti.instructer.instructername&&noti.instructer.instructername}`} {`(${noti.instructer.date&&noti.instructer.date}) To (${noti.instructer.deadline&&noti.instructer.deadline})`}</Text>
+ <Text pl={["50px","50px","100px","100px","100px"]}  fontSize={["13px","13px","14px","15px","16px"]} fontWeight={600} color={"gray.500"} fontStyle={"bold"}>{`${noti.instructer&&noti.instructer.instructername&&noti.instructer.instructername}`} {`(${noti.instructer&&noti.instructer.date&&noti.instructer.date}) To (${noti.instructer&&noti.instructer.deadline&&noti.instructer.deadline})`}</Text>
  
      </Box>
      <Divider></Divider>
@@ -45,8 +45,8 @@ dispatch(getsinglenoti(token,id))
  <Heading>Instructions</Heading>
  
  <Box w="90%" margin="auto" pt="40px" pb="30px">
- <Text textAlign={"left"} fontWeight={300} fontSize={["12px","15px","15px","15px","17px"]}>{noti.instructer.description&&noti.instructer.description}</Text>
- <Link fontStyle={"light"} fontSize={["10px","12px","15px","20px","20px"]} href={noti.link} target="_blank">{noti.instructer.link&&noti.instructer.link}</Link>
+ <Text textAlign={"left"} fontWeight={300} fontSize={["12px","15px","15px","15px","17px"]}>{noti.instructer&&noti.instructer.description&&noti.instructer.description}</Text>
+ <Link fontStyle={"light"} fontSize={["10px","12px","15px","20px","20px"]} to={noti.instructer&&noti.instructer.link&&noti.instructer.link} target="_blank">{noti.instructer&&noti.instructer.link&&noti.instructer.link}</Link>
 
  </Box>
  
