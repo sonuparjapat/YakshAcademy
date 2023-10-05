@@ -108,7 +108,7 @@ const handleChange=()=>{
 <Box w={["100%","75%","75%","75%",'75%']} pr="20px"><Text fontWeight={500} >{item.name}</Text>
 {/* <Text>{item.description}</Text> */}
 <Text>Created By:-<Text color="blue.300" display={"inline"} fontWeight={"bold"}>{item.instructername}</Text> on the date <Text color="blue.300" display={"inline"} fontWeight={"bold"}>{item.date}</Text></Text>
-    </Box><Box w={["100%","30%","30%","30%","30%"]} pr="10px" display={"grid"} gridTemplateColumns={["repeat(2,1fr)","repeat(1,1fr)","repeat(1,1fr)","repeat(1,1fr)","repeat(1,1fr)"]} gap="20px">
+    </Box><Box w={["100%","30%","30%","30%","30%"]} pr="10px" display={"grid"} gridTemplateColumns={["repeat(2,1fr)","repeat(1,1fr)","repeat(1,1fr)","repeat(2,1fr)","repeat(2,1fr)"]} gap="20px">
       
      <Link to={`/editassignment/${item._id}`}> <Button backgroundColor={"green.100"} >Edit</Button></Link>
       <DeleteDialog id={item._id} refresh={refresh}/>
