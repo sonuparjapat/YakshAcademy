@@ -16,16 +16,16 @@ const [data,setData]=useState(null)
 // console.log(data)
 // console.log(data)
 
-const {token}=logindata
-console.log(notdata)
+const {token,field}=logindata
+// console.log(notdata)
 
     useEffect(()=>{
       dispatch(getnotifications(token))
       
 socket.on("new-assignment",(notidata)=>{
-  console.log(notidata.assignment)
+  // console.log(notidata.assignment)
   setData(notidata.assignment)
-  dispatch(getnotifications(token))
+  notidata.assignment.field==field&&dispatch(getnotifications(token))
 setForany(!forany)
 
 })

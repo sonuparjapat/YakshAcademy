@@ -35,7 +35,8 @@ import { countvalue } from '../../../Redux/StudentSide/NotificationReducer/Actio
 const socket=io(`${mainapi}`)
 export default function StudentNavbar() {
   const [notifications,setNotifications]=useState(null)
-
+const authdata=useSelector((state)=>state.loginreducer)
+const {field}=authdata
   const [notificationaudio,setNotificationaudio]=useState(new Audio(notificationsound))
   const { isOpen, onToggle } = useDisclosure()
 
@@ -44,8 +45,8 @@ export default function StudentNavbar() {
 useEffect(()=>{
 socket.on("new-assignment",(notificationdata)=>{
   // console.log(notificationdata)
-    toast({description:`Your instructer ${notificationdata.assignment.instructername} create a new assignment`,position:"bottom-right",status:"success",duration:2000})
-  notificationaudio.play()
+  notificationdata.assignment.field==field&&toast({description:`Your instructer ${notificationdata.assignment.instructername} create a new assignment`,position:"bottom-right",status:"success",duration:2000})&&  notificationaudio.play()
+
 
 })
 return ()=>{
