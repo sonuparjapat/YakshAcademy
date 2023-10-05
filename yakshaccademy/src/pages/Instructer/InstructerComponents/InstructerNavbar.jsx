@@ -190,7 +190,7 @@ const NAV_ITEMS = [
    to:"allnotifications"
   },
   {
-    label: 'Messages',
-    to: 'allmessages',
+    label: 'CreateMessages',
+    to: 'createMessages',
   }
 ]
