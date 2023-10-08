@@ -1,12 +1,9 @@
 import React from 'react';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 
-import { Chart, ArcElement } from 'chart.js';
-import { Line, Pie,Doughnut } from 'react-chartjs-2';
-import { Box } from "@chakra-ui/react"
-
-Chart.register(ArcElement);
-
-const PieChartComponent = () => {
+ChartJS.register(ArcElement, Tooltip, Legend);
+export default function Chartcomponent() {
   const data = {
     labels: [
       'Red',
@@ -25,20 +22,11 @@ const PieChartComponent = () => {
     }]
   };
 
-  const options = {
-    plugins: {
-      legend: {
-        display: true, // Set this to true to display the legend
-      },
-    },
-  };
+
 
   return (
     <>
-      {/* <h3>User's Data</h3> */}
-      <Doughnut data={data} options={options} />
+      <Doughnut data={data}  />
     </>
   );
 };
-
-export default PieChartComponent;

@@ -13,10 +13,11 @@ export const registerfailure=()=>{
     return {type:regfail}
 }
 
+// registration from admin side
 export const userregister=(obj)=>(dispatch)=>{
    
     dispatch(registerrequest())
 
-    return axios.post(`${mainapi}/user/register`,obj)
+    return axios.post(`${mainapi}/admin/user/register`,obj)
 
 }
