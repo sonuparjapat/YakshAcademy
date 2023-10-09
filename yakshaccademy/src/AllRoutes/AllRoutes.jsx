@@ -22,6 +22,7 @@ import StudentSingleAssignment from '../pages/Student/Studentpages/SingleAssignm
 import StNotifications from '../pages/Student/Studentpages/StNotifications/StNotifications'
 import NotificationDetails from '../pages/Student/Studentpages/StNotifications/NotificationDetails/NotificationDetails'
 import InstructerCreateMessg from '../pages/Instructer/Instructerpages/CreateMessages/InstructerCreateMessg'
+import AdminLogin from '../pages/AdminSide/AdminAuthentication/AdminLogin'
 
 
 export default function AllRoutes() {
@@ -53,6 +54,11 @@ const location=useLocation()
     <Route path="/editassignment/:id" element={<InstructerPrivateRoute><EditAssignment/></InstructerPrivateRoute>}></Route>
     <Route path="" element={<InstructerPrivateRoute></InstructerPrivateRoute>}></Route>
     <Route path="/createMessages" element={<InstructerCreateMessg/>}></Route>
+    {/* <Route path="*" element={<Notfoun} */}
+
+
+    {/* <Admin side > ????????????????????????????????????????????????????????? */}
+    <Route path="/adminlogin" element={<AdminLogin/>}></Route>
 </Routes>
 
 
