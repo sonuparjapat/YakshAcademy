@@ -163,13 +163,13 @@ setRegdata((pre)=>({...pre,[name]:value}))
     
     }
       
-      <Grid container justifyContent="center" alignItems="center" sx={{ mt: 3 }}>
+      {/* <Grid container justifyContent="center" alignItems="center" sx={{ mt: 3 }}>
             <Grid item>
               <Link to="/signup" variant="body2">
                 Don't have an account? Sign Up
               </Link>
             </Grid>
-          </Grid>
+          </Grid> */}
     </Box>
   </Box>
   <Copyright sx={{ mt: 5 }} />
