@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useToast } from '@chakra-ui/react';
 import { Link, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { adminlogfailure, adminlogin, adminlogsuccess } from '../../../Redux/Admin/AdminAuthentication/AdminLogin/Action';
 
 
 function Copyright(props) {
@@ -41,8 +42,8 @@ const defaultTheme = createTheme();
 export default function AdminLogin() {
   const [regdata,setRegdata]=React.useState(initdata)
   const {password,email}=regdata
-  const data=useSelector((state)=>state.loginreducer)
-  const {isLoading,type,token,username,useremail}=data
+  const data=useSelector((state)=>state.adminloginreducer)
+  const {logisLoading,logisError,admintoken,adminname,adminemail}=data
   const dispatch=useDispatch()
   const toast=useToast()
 const navigate=useNavigate()
@@ -51,25 +52,24 @@ const location=useLocation()
   // handling login post request
   const handleSubmit = (event) => {
     event.preventDefault();
-  console.log(regdata)
-// dispatch(userlogin(regdata)).then((res)=>{
-//   toast({description:res.data.msg,status:"success",position:"top",duration:3000})
-//   dispatch(loginsuccess(res.data))
+  // console.log(regdata)
+dispatch(adminlogin(regdata)).then((res)=>{
+  toast({description:res.data.msg,status:"success",position:"top",duration:3000})
+dispatch(adminlogsuccess(res.data))
 
-//   navigate(`/${res.data.type}`)
-// }).catch((err)=>{
+  navigate("/admindashboard")
+}).catch((err)=>{
   
-//   if(err.message=="Network Error"){
-//     toast({description:"Please check your internet connection",status:"error",position:"top",duration:3000})
-
-//     dispatch(loginfailure())
-//   }
-//    else{ toast({description:err.response.data.msg,status:"error",position:"top",duration:3000})
-// dispatch(loginfailure())}
-//   })
-//   };
-
+  if(err.message=="Network Error"){
+    toast({description:"Please check your internet connection",status:"error",position:"top",duration:3000})
+dispatch(adminlogfailure())
   }
+   else{ toast({description:err.response.data.msg,status:"error",position:"top",duration:3000})
+dispatch(adminlogfailure())}
+  })
+  };
+
+  
 const hanndlechange=(e)=>{
   const {name,value}=e.target
 setRegdata((pre)=>({...pre,[name]:value}))
@@ -123,7 +123,7 @@ setRegdata((pre)=>({...pre,[name]:value}))
           />
         </Grid>
       </Grid>
-      {typeof data!==undefined&&isLoading?
+      {typeof data!==undefined&&logisLoading?
      
       <Button
     

@@ -24,6 +24,13 @@ import {reducer as instassignmentsreducer} from "./InstructerSide/AllAssignments
 import {reducer as editassignmentreducer} from "./InstructerSide/AllAssignments/EditAssignment/Reducer"
 import {reducer as deleteassignmentreducer} from "./InstructerSide/AllAssignments/DeleteAssignment/Reducer"
 import {reducer as getsingleassignmentreducer} from "./InstructerSide/AllAssignments/SingleAssignment/Reducer"
+
+
+
+
+//admin section
+
+import {reducer as adminloginreducer} from "./Admin/AdminAuthentication/AdminLogin/Reducer"
 ///////////////////////////////////////////////////////////////////////////
 const { combineReducers, legacy_createStore, applyMiddleware } = require("redux");
 
@@ -33,5 +40,5 @@ const { combineReducers, legacy_createStore, applyMiddleware } = require("redux"
 
 const rootreducers=combineReducers({registerreducer,loginreducer,getstudentprofilereducer,createstudentprofilereducer,updatestudentprofilereducer,getstudentassignmentreducer,
 studentsingleassignmentreducer,getsinglenotireducer,storenotificationsreducer,completeassignmentreducer,submitstudentassignmentreducer,getsubmittedassignmentreducer,getnotificationsreducer, getinstprofilereducer,updateinstprofilereducer,createinstprofilereducer,createassignmentreducer,instassignmentsreducer,deleteassignmentreducer,editassignmentreducer,
-getsingleassignmentreducer})
+getsingleassignmentreducer,adminloginreducer})
 export const store=legacy_createStore(rootreducers,applyMiddleware(thunk))

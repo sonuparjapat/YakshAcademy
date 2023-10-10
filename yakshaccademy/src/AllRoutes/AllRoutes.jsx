@@ -23,6 +23,8 @@ import StNotifications from '../pages/Student/Studentpages/StNotifications/StNot
 import NotificationDetails from '../pages/Student/Studentpages/StNotifications/NotificationDetails/NotificationDetails'
 import InstructerCreateMessg from '../pages/Instructer/Instructerpages/CreateMessages/InstructerCreateMessg'
 import AdminLogin from '../pages/AdminSide/AdminAuthentication/AdminLogin'
+import Dashboard from '../pages/AdminSide/Dashboard/Dashboard'
+import AdminPrivateRoute from './PrivateRoutes/AdminPrivateRoute'
 
 
 export default function AllRoutes() {
@@ -59,6 +61,7 @@ const location=useLocation()
 
     {/* <Admin side > ????????????????????????????????????????????????????????? */}
     <Route path="/adminlogin" element={<AdminLogin/>}></Route>
+    <Route path="/admindashboard" element={<AdminPrivateRoute><Dashboard/></AdminPrivateRoute>}></Route>
 </Routes>
 
 
