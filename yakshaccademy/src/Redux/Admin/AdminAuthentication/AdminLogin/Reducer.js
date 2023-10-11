@@ -23,7 +23,9 @@ const initialdata={
     fullstackstudents:[],
     frontendinstructers:[],
     backendinstructers:[],
-    fullstackinstructers:[]
+    fullstackinstructers:[],
+    admins:[],
+    adminscount:0
 }
 
 export const reducer=(state=initialdata,action)=>{
@@ -39,6 +41,8 @@ export const reducer=(state=initialdata,action)=>{
         frontendstudentscount:0,
         backendstudentscount:0,
         fullstackstudentscount:0,
+        admins:[],
+        adminscount:0,
         students:[],
         instructer:[],
         frontendstudents:[],
@@ -65,7 +69,9 @@ export const reducer=(state=initialdata,action)=>{
                 fullstackstudents:payload.fullstackstudents,
                 frontendinstructers:payload.frontendinstructers,
                 backendinstructers:payload.backendinstructers,
-                fullstackinstructers:payload.fullstackinstructers }
+                fullstackinstructers:payload.fullstackinstructers,
+                admins:payload.admins,
+                adminscount:payload.adminscount, }
         }
         case adminlogfail:{
             return {...state,logisLoading:false,logisError:true,alldata:0,adminId:"",adminname:"",adminemail:"",admintoken:"",
@@ -84,7 +90,9 @@ export const reducer=(state=initialdata,action)=>{
             fullstackstudents:[],
             frontendinstructers:[],
             backendinstructers:[],
-            fullstackinstructers:[] }
+            fullstackinstructers:[],
+            admins:[],
+            adminscount:0, }
         }
         default:{
             return state

@@ -63,6 +63,10 @@ const location=useLocation()
     <Route path="/adminlogin" element={<AdminLogin/>}></Route>
     <Route path="/admindashboard" element={<AdminPrivateRoute><Dashboard/></AdminPrivateRoute>}></Route>
     <Route path="/management" element={<AdminPrivateRoute><Dashboard/></AdminPrivateRoute>}></Route>
+    <Route path="/students" element={<AdminPrivateRoute><Dashboard/></AdminPrivateRoute>}></Route>
+    <Route path="/instructers" element={<AdminPrivateRoute><Dashboard/></AdminPrivateRoute>}></Route>
+    <Route path="/messages" element={<AdminPrivateRoute><Dashboard/></AdminPrivateRoute>}></Route>
+
 </Routes>
 
 

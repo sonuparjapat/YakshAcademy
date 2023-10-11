@@ -23,6 +23,7 @@ import Chart from "./Chart";
 import Deposits from './Deposit';
 import Orders from './Orders';
 import { useLocation } from 'react-router-dom';
+import { LocationCity } from '@mui/icons-material';
 
 function Copyright(props) {
   return (
@@ -123,7 +124,8 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {location.pathname=="/admindashboard"?"Dashboard":location.pathname=="/management"?"Management":" "}
+              {location.pathname=="/admindashboard"?"Dashboard":location.pathname=="/management"?"Management":
+              location.pathname=="/students"?"Students":location.pathname=="/instructers"?"Instructers":location.pathname=="/messages"?"Messages":"AdminSide"}
             </Typography>
             {/* <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">

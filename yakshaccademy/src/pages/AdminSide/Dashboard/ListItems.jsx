@@ -18,7 +18,7 @@ export const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+     <Link to="/admindashboard"> <ListItemText primary="Dashboard" /></Link>
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
@@ -30,19 +30,19 @@ export const mainListItems = (
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Students" />
+    <Link to="/students"> <ListItemText primary="Students" /></Link> 
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <School />
       </ListItemIcon>
-      <ListItemText primary="Instructers" />
+     <Link to="/instructers"> <ListItemText primary="Instructers" /></Link>
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <Message />
       </ListItemIcon>
-      <ListItemText primary="Messages" />
+     <Link to="/messages"><ListItemText primary="Messages" /></Link> 
     </ListItemButton>
   </React.Fragment>
 );
