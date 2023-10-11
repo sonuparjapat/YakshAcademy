@@ -15,7 +15,6 @@ export const adminlogfailure=()=>{
 
 
 export const adminlogin=(obj)=>(dispatch)=>{
-    console.log(obj)
     dispatch(adminlogrequest())
-    return axios.post(`http://localhost:8080/admin/login`,obj)
+    return axios.post(`${mainapi}/admin/login`,obj)
 }

@@ -22,6 +22,7 @@ import { secondaryListItems } from './ListItems';
 import Chart from "./Chart";
 import Deposits from './Deposit';
 import Orders from './Orders';
+import { useLocation } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -86,7 +87,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+
   const [open, setOpen] = React.useState(true);
+  const location=useLocation()
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -120,7 +123,7 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              {location.pathname=="/admindashboard"?"Dashboard":location.pathname=="/management"?"Management":" "}
             </Typography>
             {/* <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -202,5 +205,6 @@ export default function Dashboard() {
         </Box>
       </Box>
     </ThemeProvider>
-  );
+
+  )
 }
