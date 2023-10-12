@@ -25,6 +25,9 @@ import Orders from './Orders';
 import { useLocation } from 'react-router-dom';
 import { LocationCity } from '@mui/icons-material';
 
+import StudentsRelated from './StudentsRelated';
+import Chartcomponent from './Chart';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -38,7 +41,7 @@ function Copyright(props) {
   );
 }
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -163,47 +166,42 @@ export default function Dashboard() {
                 : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
+        
             overflow: 'auto',
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
-                </Paper>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ pt: 4 }} />
-          </Container>
+          {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}> */}
+  {/* <Grid container spacing={3}> */}
+    {/* Chart */}
+   <Box > {location.pathname=="/admindashboard"?<Chartcomponent/>:<StudentsRelated/>}</Box>
+    {/* <Grid item xs={12} md={8} lg={9}> */}
+ 
+   
+      {/* </Paper> */}
+    {/* </Grid> */}
+    {/* Recent Deposits */}
+    {/* <Grid item xs={12} md={4} lg={3}>
+      <Paper
+        sx={{
+          p: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 240, // Changed 'height' to 'minHeight' for better responsiveness
+        }}
+      >
+        <Deposits />
+      </Paper>
+    </Grid> */}
+    {/* Recent Orders */}
+    {/* <Grid item xs={12}>
+      <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+        <Orders />
+      </Paper>
+    </Grid> */}
+  {/* </Grid> */}
+  <Copyright sx={{ pt: 4 }} />
+{/* </Container> */}
         </Box>
       </Box>
     </ThemeProvider>

@@ -4,10 +4,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
 import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
+
+
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { ManageAccounts, Message, School } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
@@ -16,31 +16,31 @@ export const mainListItems = (
   <React.Fragment>
     <ListItemButton>
       <ListItemIcon>
-        <DashboardIcon />
+      <Link to="/admindashboard">   <DashboardIcon /></Link>
       </ListItemIcon>
      <Link to="/admindashboard"> <ListItemText primary="Dashboard" /></Link>
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <ManageAccounts/>
+      <Link to="/management">     <ManageAccounts/></Link>
       </ListItemIcon>
      <Link to="/management"><ListItemText primary="Management"  /></Link> 
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <PeopleIcon />
+      <Link to="/students">     <PeopleIcon /></Link>
       </ListItemIcon>
     <Link to="/students"> <ListItemText primary="Students" /></Link> 
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <School />
+      <Link to="/instructers">      <School /></Link>
       </ListItemIcon>
      <Link to="/instructers"> <ListItemText primary="Instructers" /></Link>
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <Message />
+      <Link to="/messages">   <Message /></Link>
       </ListItemIcon>
      <Link to="/messages"><ListItemText primary="Messages" /></Link> 
     </ListItemButton>
