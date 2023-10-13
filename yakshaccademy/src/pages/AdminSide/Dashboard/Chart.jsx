@@ -179,20 +179,41 @@ setBardata((pre)=>({...pre,datasets:[{
   return (
     <>
     <Box  >
-      <Box position={"relative"} left={["30px","30px","30px","30px","30px"]} border="1px solid red" display={"flex"} flexDirection={["column","column","row","row","row"]} justifyContent={"space-around"} mt="20px" ml="20px" gap="40px">
-    <Box border="1px solid red" boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px" w="100%"  m="0 auto" >
+      <Box  w="80%" margin="auto" mt="20px" display={"grid"} gridTemplateColumns={["repeat(1,1fr)","repeat(2,1fr)","repeat(3,1fr)","repeat(3,1fr)","repeat(3,1fr)"]} gap="30px">
+<Box boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px" borderRadius={"15px"} bg="#F8BBD0" height="150px" width="250px"></Box>
+<Box boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px"  bg="#F06292" > </Box>
+<Box boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px"  bg="#B3E5FC" ></Box>
+<Box boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px" borderRadius={"15px"}  height="150px" width="250px"  bg="#F4511E" ></Box>
+<Box boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"}  height="150px" width="250px" bg="#FFAB40" ></Box>
+<Box  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px"  bg="#CFD8DC" ></Box>
+      </Box>
+      <Box position={"relative"} left={["30px","30px","30px","30px","30px"]}  display={"flex"} flexDirection={["column","column","row","row","row"]} justifyContent={"space-around"} mt="20px" ml="20px" gap="40px">
+    <Box  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px" w="100%"  m="0 auto" >
     
             
-          <Box   margin="auto" p={4} boxShadow="md" bg="white">
+          <Box height={"400px"}  margin="auto" p={4} boxShadow="md" bg="white">
             <Bar  data={bardata} options={{ maintainAspectRatio: false }} />
           </Box>
       
      
    
     </Box>
-    <Box w="100%"  border='1px solid red' >
-      <Pie   data={chardata1} options={{ maintainAspectRatio: false }}/>
+   <Box><Box w="100%" >
+   <Center > <Pie   data={chardata1} options={{ maintainAspectRatio: false }}/></Center>  
+
     </Box>
+    <Box w="100%" >
+   <Center > <Pie   data={chardata1} options={{ maintainAspectRatio: false }}/></Center>  
+
+    </Box>
+    <Box w="100%" >
+   <Center > <Pie   data={chardata1} options={{ maintainAspectRatio: false }}/></Center>  
+
+    </Box>
+    
+    
+    
+    </Box> 
     <Box>
    
 
