@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
-import { useSelector } from 'react-redux';
-import { Box } from '@chakra-ui/react';
+import { Bar, Doughnut, Pie } from "react-chartjs-2";
+import {
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+ } from 'chart.js';
+
+import { useSelector } from 'react-redux';
+import { Box, Center, Text, VStack } from '@chakra-ui/react';
+
+ChartJS.register(ArcElement, Tooltip, Legend,CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,);
+
+
 export default function Chartcomponent() {
 const [chardata1,setChart1data]=useState( {
     labels: [
@@ -60,6 +73,32 @@ const [chardata3,setChardata3]=useState({
     hoverOffset: 4
   }]
 })
+const [bardata,setBardata]=useState({
+    labels: ["FrontendInst","BackendInst","FullstackInst","FrontendStd.","BackendStd","FullstackStd"],
+    datasets: [{
+      label: 'All Users Data',
+      data: [0, 0, 0, 0, 0, 0, 0],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1
+    }]
+  })
   const adminalldata=useSelector((state)=>state.adminloginreducer)
 
 const { studentscount,
@@ -111,25 +150,59 @@ setChardata3((pre)=>({...pre,datasets:[{
   ],
   hoverOffset: 4
 }]}))
+
+setBardata((pre)=>({...pre,datasets:[{
+  label: 'Particular Data',
+  data: [frontendinstructerscount,backendinstructerscount, fullstackinstructerscount,frontendstudentscount, backendstudentscount, fullstackstudentscount],
+  backgroundColor: [
+    'rgba(255, 99, 132, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 205, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(153, 102, 255, 0.2)'
+   
+  ],
+  borderColor: [
+    'rgb(255, 99, 132)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 205, 86)',
+    'rgb(75, 192, 192)',
+    'rgb(54, 162, 235)',
+    'rgb(153, 102, 255)'
+    
+  ],
+  borderWidth: 1
+}]}))
 },[])
 
   return (
     <>
+    <Box  >
+      <Box position={"relative"} left={["30px","30px","30px","30px","30px"]} border="1px solid red" display={"flex"} flexDirection={["column","column","row","row","row"]} justifyContent={"space-around"} mt="20px" ml="20px" gap="40px">
+    <Box border="1px solid red" boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px" w="100%"  m="0 auto" >
+    
+            
+          <Box   margin="auto" p={4} boxShadow="md" bg="white">
+            <Bar  data={bardata} options={{ maintainAspectRatio: false }} />
+          </Box>
+      
+     
+   
+    </Box>
+    <Box w="100%"  border='1px solid red' >
+      <Pie   data={chardata1} options={{ maintainAspectRatio: false }}/>
+    </Box>
     <Box>
-      <Box display={"grid"} gridTemplateColumns={"repeat(2,1fr)"}>
-    <Box display="grid" gridTemplateColumns={["repeat(1,1fr)","repeat(1,1fr)","repeat(3,1fr)","repeat(3,1fr)"]} gap="10px">
-    <Box border="1px solid red" w={["80%","80%","80%","80%","80%"]} margin="auto"> <Doughnut w="100vw" height={"100vh"} data={chardata1}  /></Box> 
-    <Box border="1px solid red" w={["80%","80%","80%","80%","80%"]} margin="auto"><Doughnut data={chardata2}/></Box>
-    <Box border="1px solid red" w={["80%","80%","80%","80%","80%"]} margin="auto" ><Doughnut data={chardata3}/></Box>
-    </Box>
-    
-    <Box>
-      hiii
+   
+
     </Box>
     
     </Box>
-    
-    
+    <Box height={"800px"}>
+      <Center>Hello</Center>
+    </Box>
+    <Box height={"1000px"}>parjat</Box>
     </Box>
     </>
   );
