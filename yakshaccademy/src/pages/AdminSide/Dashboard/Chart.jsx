@@ -10,7 +10,8 @@ import {
  } from 'chart.js';
 
 import { useSelector } from 'react-redux';
-import { Box, Center, Text, VStack } from '@chakra-ui/react';
+import { Box, Center, Table, Text, VStack } from '@chakra-ui/react';
+import { People } from '@mui/icons-material';
 
 ChartJS.register(ArcElement, Tooltip, Legend,CategoryScale,
   LinearScale,
@@ -102,6 +103,7 @@ const [bardata,setBardata]=useState({
   const adminalldata=useSelector((state)=>state.adminloginreducer)
 
 const { studentscount,
+  alldata,
   instructerscount,
   frontendinstructerscount,
   backendinstructerscount,
@@ -179,15 +181,46 @@ setBardata((pre)=>({...pre,datasets:[{
   return (
     <>
     <Box  >
-      <Box  w="80%" margin="auto" mt="20px" display={"grid"} gridTemplateColumns={["repeat(1,1fr)","repeat(2,1fr)","repeat(3,1fr)","repeat(3,1fr)","repeat(3,1fr)"]} gap="30px">
-<Box boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px" borderRadius={"15px"} bg="#F8BBD0" height="150px" width="250px"></Box>
-<Box boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px"  bg="#F06292" > </Box>
-<Box boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px"  bg="#B3E5FC" ></Box>
-<Box boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px" borderRadius={"15px"}  height="150px" width="250px"  bg="#F4511E" ></Box>
-<Box boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"}  height="150px" width="250px" bg="#FFAB40" ></Box>
-<Box  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px"  bg="#CFD8DC" ></Box>
+      <Box textAlign={"center"} color="white" position={"relative"} left={["30px","30px","30px","30px","30px"]}  ml="20px" gap="40px"  mt="20px" display={"grid"} gridTemplateColumns={["repeat(1,1fr)","repeat(2,1fr)","repeat(3,1fr)","repeat(3,1fr)","repeat(3,1fr)"]} gap="30px">
+<Box _hover={{"bg":"#9b2750", transition: 'background-color 1s'}}  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px" borderRadius={"15px"} bg="#F8BBD0" height="150px" width="250px">
+  <Text fontWeight={600} fontStyle={"bold"} pt="20px" fontSize={"25px"}>TotalUsers<People/></Text>
+  <Text color="blue.300" fontWeight={600} fontStyle={"bold"} fontSize={"25px"}>{alldata}</Text>
+</Box>
+<Box _hover={{"bg":"#2c5d71", transition: 'background-color 1s'}}  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} 
+height="150px" width="250px"  bg="#62f0a9" > 
+<Text fontWeight={600} fontStyle={"bold"} pt="20px" fontSize={"25px"}>Instructers<People/></Text>
+  <Text color="blue.300" fontWeight={600} fontStyle={"bold"} fontSize={"25px"}>{instructerscount}</Text>
+  </Box>
+<Box _hover={{"bg":"#2c5d71", transition: 'background-color 1s'}}  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px"  bg="#F06292" > 
+<Text fontWeight={600} fontStyle={"bold"} pt="20px" fontSize={"25px"}>FrontendInst.<People/></Text>
+  <Text color="blue.300" fontWeight={600} fontStyle={"bold"} fontSize={"25px"}>{frontendinstructerscount}</Text>
+  </Box>
+<Box  _hover={{"bg":"#134359", transition: 'background-color 1s'}} boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px"  bg="#B3E5FC" >
+<Text fontWeight={600} fontStyle={"bold"} pt="20px" fontSize={"25px"}>BackendInst<People/></Text>
+  <Text color="blue.300" fontWeight={600} fontStyle={"bold"} fontSize={"25px"}>{backendinstructerscount}</Text>
+</Box>
+<Box _hover={{"bg":"#743522", transition: 'background-color 1s'}}  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px" borderRadius={"15px"}  height="150px" width="250px"  bg="#F4511E" >
+<Text fontWeight={600} fontStyle={"bold"} pt="20px" fontSize={"25px"}>FullstackInst<People/></Text>
+  <Text color="blue.300" fontWeight={600} fontStyle={"bold"} fontSize={"25px"}>{fullstackinstructerscount}</Text>
+</Box>
+<Box  _hover={{"bg":"#7f5b2d", transition: 'background-color 1s'}} boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"}  height="150px" width="250px" bg="#FFAB40" >
+<Text fontWeight={600} fontStyle={"bold"} pt="20px" fontSize={"25px"}>TotalStudents<People/></Text>
+  <Text color="blue.300" fontWeight={600} fontStyle={"bold"} fontSize={"25px"}>{studentscount}</Text>
+</Box>
+<Box  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px" _hover={{"bg":"#2c5d71", transition: 'background-color 1s'}}  bg="#CFD8DC" >
+<Text fontWeight={600} fontStyle={"bold"} pt="20px" fontSize={"25px"}>FrontendStd<People/></Text>
+  <Text color="blue.300" fontWeight={600} fontStyle={"bold"} fontSize={"25px"}>{frontendstudentscount}</Text>
+</Box>
+<Box  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px" _hover={{"bg":"#b75b92", transition: 'background-color 1s'}}  bg="#dc8fbd" >
+<Text fontWeight={600} fontStyle={"bold"} pt="20px" fontSize={"25px"}>BackendStd<People/></Text>
+  <Text color="blue.300" fontWeight={600} fontStyle={"bold"} fontSize={"25px"}>{backendstudentscount}</Text>
+</Box>
+<Box  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px"  borderRadius={"15px"} height="150px" width="250px" _hover={{"bg":"#89cd3b", transition: 'background-color 1s'}}  bg="#5f7a41" >
+<Text fontWeight={600} fontStyle={"bold"} pt="20px" fontSize={"25px"}>FullstackStd<People/></Text>
+  <Text color="blue.300" fontWeight={600} fontStyle={"bold"} fontSize={"25px"}>{fullstackstudentscount}</Text>
+</Box>
       </Box>
-      <Box position={"relative"} left={["30px","30px","30px","30px","30px"]}  display={"flex"} flexDirection={["column","column","row","row","row"]} justifyContent={"space-around"} mt="20px" ml="20px" gap="40px">
+      <Box position={"relative"} left={["30px","30px","30px","30px","30px"]}  display={"flex"} flexDirection={["column","column","row","row","row"]} justifyContent={"space-around"} mt="50px" ml="20px" gap="40px">
     <Box  boxShadow= "rgba(149, 157, 165, 0.2) 0px 8px 24px" w="100%"  m="0 auto" >
     
             
@@ -203,11 +236,11 @@ setBardata((pre)=>({...pre,datasets:[{
 
     </Box>
     <Box w="100%" >
-   <Center > <Pie   data={chardata1} options={{ maintainAspectRatio: false }}/></Center>  
+   <Center > <Pie   data={chardata2} options={{ maintainAspectRatio: false }}/></Center>  
 
     </Box>
     <Box w="100%" >
-   <Center > <Pie   data={chardata1} options={{ maintainAspectRatio: false }}/></Center>  
+   <Center > <Pie   data={chardata3} options={{ maintainAspectRatio: false }}/></Center>  
 
     </Box>
     
@@ -221,7 +254,7 @@ setBardata((pre)=>({...pre,datasets:[{
     
     </Box>
     <Box height={"800px"}>
-      <Center>Hello</Center>
+  
     </Box>
     <Box height={"1000px"}>parjat</Box>
     </Box>
