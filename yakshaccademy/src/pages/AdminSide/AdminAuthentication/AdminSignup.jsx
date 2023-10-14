@@ -14,9 +14,10 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerfailure, registersuccess, userregister } from '../../Redux/Authentication/Register/Action';
+
 import { useToast } from '@chakra-ui/react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { adminreg, adminregfailure, adminregsuccess } from '../../../Redux/Admin/AdminAuthentication/AdminRegistration/Action';
 
 function Copyright(props) {
   return (
@@ -44,9 +45,10 @@ const defaultTheme = createTheme();
 
 export default function AdminSignUp() {
   const [adminsignupdata,setAdminsignupdata]=React.useState(initdata)
-  const {name,email,password,type,field,unqId}=adminsignupdata
-  const data=useSelector((state)=>state.registerreducer)
-  const {isLoading}=data
+  const {name,email,password,Id}=adminsignupdata
+  const data=useSelector((state)=>state.adminregreducer)
+
+  const {adminregisLoading}=data
   const dispatch=useDispatch()
   const toast=useToast()
 const navigate=useNavigate()
@@ -54,21 +56,16 @@ const navigate=useNavigate()
   // handling registration post request
   const handleSubmit = (event) => {
     event.preventDefault();
-dispatch(userregister(adminsignupdata)).then((res)=>{
-  toast({description:res.data.msg,status:"success",position:"top",duration:3000})
-  dispatch(registersuccess())
-  navigate("/login")
+console.log(adminsignupdata)
+dispatch(adminreg(adminsignupdata)).then((res)=>{
+    
+    dispatch(adminregsuccess())
+    toast({description:res.data.msg,status:"success","position":"top",duration:3000})
+    navigate("/adminlogin")
 }).catch((err)=>{
-  if(err.message=="Network Error"){
-    toast({description:"Please check your internet connection",status:"error",position:"top",duration:3000})
-
-    dispatch(registerfailure())
-  }else{
-
-  
-    toast({description:err.response.data.msg,status:"error",position:"top",duration:3000})
-dispatch(registerfailure())}
-  })
+    dispatch(adminregfailure())
+    toast({description:err.response.data.msg,"status":"error",position:"top",duration:3000})
+})
   };
 
 
@@ -114,9 +111,9 @@ setAdminsignupdata((pre)=>({...pre,[name]:value}))
         <Grid item xs={12}>
           <TextField
             autoComplete="given-name"
-            name="unqId"
+            name="Id"
             required
-            value={adminsignupdata.unqId}
+            value={adminsignupdata.Id}
             fullWidth
             id="UniqueId"
             label="UniqueId"
@@ -125,7 +122,7 @@ setAdminsignupdata((pre)=>({...pre,[name]:value}))
             sx={{ width: '80%', '@media (min-width: 600px)': { width: '30%' } }}
           />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <FormControl fullWidth sx={{ mt: 2, width: '80%', '@media (min-width: 600px)': { width: '30%' } }}>
             <InputLabel id="demo-simple-select-label">Type</InputLabel>
             <Select
@@ -140,8 +137,8 @@ setAdminsignupdata((pre)=>({...pre,[name]:value}))
               <MenuItem value={"student"}>Student</MenuItem>
             </Select>
           </FormControl>
-        </Grid>
-        <Grid item xs={12}>
+        </Grid> */}
+        {/* <Grid item xs={12}>
           <FormControl fullWidth sx={{ mt: 2, width: '80%', '@media (min-width: 600px)': { width: '30%' } }}>
             <InputLabel id="demo-simple-select-label">Field</InputLabel>
             <Select
@@ -158,7 +155,7 @@ setAdminsignupdata((pre)=>({...pre,[name]:value}))
              
             </Select>
           </FormControl>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <TextField
             required
@@ -187,7 +184,7 @@ setAdminsignupdata((pre)=>({...pre,[name]:value}))
           />
         </Grid>
       </Grid>
-      {isLoading?
+      {adminregisLoading?
      
       <Button
     
@@ -215,7 +212,7 @@ setAdminsignupdata((pre)=>({...pre,[name]:value}))
     
     
     :<Button
-    disabled={name&&email&&type&&password&&field&&unqId?false:true}
+    disabled={name&&email&&password&&Id?false:true}
       type="submit"
       fullWidth
       variant="contained"
