@@ -11,7 +11,8 @@ import {
 
 import { useSelector } from 'react-redux';
 import { Box, Center, Table, Text, VStack } from '@chakra-ui/react';
-import { People } from '@mui/icons-material';
+import { Add, Computer, People, PlusOne } from '@mui/icons-material';
+import AdminTable from './AdminTable';
 
 ChartJS.register(ArcElement, Tooltip, Legend,CategoryScale,
   LinearScale,
@@ -253,10 +254,13 @@ height="150px" width="250px"  bg="#62f0a9" >
     </Box>
     
     </Box>
-    <Box height={"800px"}>
-  
+   
+    <Box margin="auto" position={"relative"} left={["30px","30px","30px","30px","30px"]}  mt={["60px","60px","100px","100px","100px"]} >
+      <Box bg="blue.300"  height={"50px"} > <Box pt="10px" display={"flex"} justifyContent={"space-evenly"}><Text  display={"inline"} color="white" fontSize={"20px"} fontWeight={500}>Admins:<Computer/></Text>
+      <Text  textAlign={"right"}  display={"inline"} color="green" fontSize={"20px"} fontWeight={500}>ADD<Add/></Text></Box>
+      </Box>
+      <AdminTable/>
     </Box>
-    <Box height={"1000px"}>parjat</Box>
     </Box>
     </>
   );
