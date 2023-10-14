@@ -15,7 +15,12 @@ export const adminregfailure=()=>{
     return {type:adminregfail}
 }
 
-export const adminreg=(obj)=>(dispatch)=>{
+export const adminreg=(token,obj)=>(dispatch)=>{
     dispatch(adminregrequest())
-    return axios.post(`${mainapi}/admin/register`,obj)
+    return axios.post(`${mainapi}/admin/register`,obj,{
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        }
+    })
 }

@@ -16,5 +16,5 @@ export const adminlogfailure=()=>{
 
 export const adminlogin=(obj)=>(dispatch)=>{
     dispatch(adminlogrequest())
-    return axios.post(`${mainapi}/admin/login`,obj)
+    return axios.post(`${mainapi}/adminlogin/login`,obj)
 }

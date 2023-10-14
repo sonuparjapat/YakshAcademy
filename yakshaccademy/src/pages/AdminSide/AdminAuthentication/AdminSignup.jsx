@@ -46,6 +46,8 @@ const defaultTheme = createTheme();
 export default function AdminSignUp() {
   const [adminsignupdata,setAdminsignupdata]=React.useState(initdata)
   const {name,email,password,Id}=adminsignupdata
+  const adminlogindata=useSelector((state)=>state.adminloginreducer)
+  const {admintoken}=adminlogindata
   const data=useSelector((state)=>state.adminregreducer)
 
   const {adminregisLoading}=data
@@ -57,7 +59,7 @@ const navigate=useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault();
 console.log(adminsignupdata)
-dispatch(adminreg(adminsignupdata)).then((res)=>{
+dispatch(adminreg(admintoken,adminsignupdata)).then((res)=>{
     
     dispatch(adminregsuccess())
     toast({description:res.data.msg,status:"success","position":"top",duration:3000})
@@ -224,13 +226,7 @@ setAdminsignupdata((pre)=>({...pre,[name]:value}))
     
     }
       
-      <Grid container justifyContent="center" alignItems="center" sx={{ mt: 3 }}>
-            <Grid item>
-              <Link to="/login" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
+   
     </Box>
   </Box>
   <Copyright sx={{ mt: 5 }} />
