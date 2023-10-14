@@ -10,9 +10,10 @@ import {
  } from 'chart.js';
 
 import { useSelector } from 'react-redux';
-import { Box, Center, Table, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Center, Table, Text, VStack } from '@chakra-ui/react';
 import { Add, Computer, People, PlusOne } from '@mui/icons-material';
 import AdminTable from './AdminTable';
+import { Link } from 'react-router-dom';
 
 ChartJS.register(ArcElement, Tooltip, Legend,CategoryScale,
   LinearScale,
@@ -257,7 +258,7 @@ height="150px" width="250px"  bg="#62f0a9" >
    
     <Box margin="auto" position={"relative"} left={["30px","30px","30px","30px","30px"]}  mt={["60px","60px","100px","100px","100px"]} >
       <Box bg="blue.300"  height={"50px"} > <Box pt="10px" display={"flex"} justifyContent={"space-evenly"}><Text  display={"inline"} color="white" fontSize={"20px"} fontWeight={500}>Admins:<Computer/></Text>
-      <Text  textAlign={"right"}  display={"inline"} color="green" fontSize={"20px"} fontWeight={500}>ADD<Add/></Text></Box>
+      <Link to="/adminsignup"><Button  textAlign={"right"}  color="green" height={"100%"} fontSize={"20px"} fontWeight={500}>ADD<Add/></Button></Link></Box>
       </Box>
       <AdminTable/>
     </Box>
