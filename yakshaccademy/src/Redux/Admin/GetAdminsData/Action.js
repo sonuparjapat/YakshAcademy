@@ -14,7 +14,8 @@ export const getadmindatafailure=()=>{
     return {type:getadmindatafail}
 }
 
-export const getadmindata=(token,obj)=>(dispatch)=>{
+export const getadmindata=(token,forwhat,obj)=>(dispatch)=>{
+    console.log(token,forwhat)
     dispatch(getadmindatarequest())
 if(forwhat=="admins"){
     axios.get(`${mainapi}/admin/admins`,{

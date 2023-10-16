@@ -4,11 +4,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Delete } from '@mui/icons-material'
 import { deleteadmin, deleteadminfailure, deleteadminsucess } from '../../../Redux/Admin/DeleteAdmin/Action'
 import { Toast } from 'bootstrap'
+import { getadmindata } from '../../../Redux/Admin/GetAdminsData/Action'
+import AlertComponent from './AlertComponent'
+import AlertdeleteComponent from './AlertComponent'
 
 export default function AdminTable() {
     const adminalldata=useSelector((state)=>state.adminloginreducer)
 const [admindata,setAdmindata]=useState([])
 const [forany,setForany]=useState(false)
+
+const dispatch=useDispatch()
+const deleteadmindata=useSelector((state)=>state.deleteadminreducer)
+const {deleteadminisLoading,deleteadminisError}=deleteadmindata
+const toast=useToast()
     const { studentscount,
       alldata,
       instructerscount,
@@ -29,15 +37,21 @@ const [forany,setForany]=useState(false)
       admins,
       admintoken,
       fullstackinstructers }=adminalldata
+      const dataforadminside=useSelector((state)=>state.getadmindatareducer)
+      const {alltypedata,admindataisLoading,adminddataisError}=dataforadminside
+      const [status,setStatus]=useState(false)
+      const [deletingitem,setDeleteingitem]=useState(null)
+      // console.log(alltypedata)
+      // console.log(dataforadminside)
       useEffect(()=>{
-setAdmindata(admins)
+
+dispatch(getadmindata(admintoken,"admins"))
+// setAdmindata(alltypedata)
       },[forany])
-      const dispatch=useDispatch()
-      const deleteadmindata=useSelector((state)=>state.deleteadminreducer)
-      const {deleteadminisLoading,deleteadminisError}=deleteadmindata
-      const toast=useToast()
+     
     //   console.log(admindata)
     const handledelete=(id)=>{
+      setDeleteingitem(id)
       dispatch(deleteadmin(admintoken,id)).then((res)=>{
         dispatch(deleteadminsucess())
         toast({description:res.data.msg,position:"top",duration:"2000",status:"success"})
@@ -46,6 +60,15 @@ setAdmindata(admins)
         dispatch(deleteadminfailure())
         toast({description:err.response.data.msg,position:"top",duration:"2000",status:"error"})
       })
+    }
+    if(admindataisLoading){
+      return (
+        <Center><h3>Loading...</h3></Center>
+      )
+    }else if(adminddataisError){
+      return (
+        <Center><h3>Something going wrong...</h3></Center>
+      )
     }
   return (
     <>
@@ -62,9 +85,10 @@ setAdmindata(admins)
         {/* <Th>Email</Th> */}
       </Tr>
     </Thead>
-    {admindata!=="undefined"&&admindata.length>=1?
     
-admindata.map((admin,index)=>{
+    {alltypedata!=="undefined"&&alltypedata.length>=1?
+    
+alltypedata.map((admin,index)=>{
     return (
 <Tbody>
       <Tr>
@@ -72,7 +96,7 @@ admindata.map((admin,index)=>{
         <Td>{admin.name}</Td>
         <Td >{admin.email}</Td>
         <Td>{admin.Id}</Td>
-        {admins.length>1&&<Td><Button onClick={()=>handledelete(admin._id)} _hover={{color:"red"}}><Delete /></Button></Td>}
+        {alltypedata.length>1&&<Td><Button onClick={()=>handledelete(admin._id)} _hover={{color:"red"}} >{deletingitem==admin._id?"Deleting..":<Delete  />}</Button></Td>}
       </Tr>
     
     </Tbody>
@@ -83,8 +107,8 @@ admindata.map((admin,index)=>{
   
   </Table>
 </TableContainer>
-    
-    
+   
+
     </>
   )
 }
