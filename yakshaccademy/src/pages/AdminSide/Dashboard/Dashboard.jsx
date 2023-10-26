@@ -27,6 +27,8 @@ import { LocationCity } from '@mui/icons-material';
 
 import StudentsRelated from './StudentsRelated';
 import Chartcomponent from './Chart';
+import Mangement from './ManageMent/mangement';
+import Studentsection from './StudentSection/Studentsection';
 
 function Copyright(props) {
   return (
@@ -174,7 +176,7 @@ export default function Dashboard() {
           {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}> */}
   {/* <Grid container spacing={3}> */}
     {/* Chart */}
-   <Box > {location.pathname=="/admindashboard"?<Chartcomponent/>:<StudentsRelated/>}</Box>
+   <Box > {location.pathname=="/admindashboard"?<Chartcomponent/>:location.pathname=="/management"?<Mangement/>:location.pathname=="/students"?<Studentsection/>:<StudentsRelated/>}</Box>
     {/* <Grid item xs={12} md={8} lg={9}> */}
  
    
