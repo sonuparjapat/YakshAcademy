@@ -26,6 +26,7 @@ import AdminLogin from '../pages/AdminSide/AdminAuthentication/AdminLogin'
 import Dashboard from '../pages/AdminSide/Dashboard/Dashboard'
 import AdminPrivateRoute from './PrivateRoutes/AdminPrivateRoute'
 import AdminSignUp from '../pages/AdminSide/AdminAuthentication/AdminSignup'
+import Tickets from '../pages/Student/Studentpages/Tickets/Tickets'
 
 
 export default function AllRoutes() {
@@ -48,7 +49,7 @@ const location=useLocation()
    <Route path="/details/:id" element={<StudentPrivateRoute><StudentSingleAssignment/></StudentPrivateRoute>}></Route>
    <Route path="/profile" element={<StudentPrivateRoute><StudentProfile/></StudentPrivateRoute>}></Route>
 <Route path="/notificationdetails/:id" element={<StudentPrivateRoute><NotificationDetails/></StudentPrivateRoute>}></Route>
-  
+  <Route path="/tickets" element={<StudentPrivateRoute><Tickets/></StudentPrivateRoute>}></Route>
   {/* InstructerRoutes */}
     <Route path="/instructer" element={<InstructerPrivateRoute><Instructer/></InstructerPrivateRoute>}></Route>
     <Route path="/instructerprofile" element={<InstructerPrivateRoute><InstructerProfile/></InstructerPrivateRoute>}></Route>

@@ -220,7 +220,7 @@ const NAV_ITEMS = [
    to:"notifications"
   },
   {
-    label: 'Messages',
-    to: 'messages',
+    label: 'Tickets',
+    to: 'tickets',
   },
 ]
